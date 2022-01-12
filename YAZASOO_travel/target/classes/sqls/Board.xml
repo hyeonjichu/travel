@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="Board">
+	<insert id="write" parameterType="mul.camp.a.dto.boardDto">
+		INSERT INTO Y_BOARD(IDX, TITLE, CONTENT, ID, REGDATE, CNT, DEL, SPOT) 
+		VALUES(bidx.NEXTVAL, #{title}, #{content}, #{id}, SYSDATE, 0, 'N', #{spot})
+	</insert>
+	<select id="detail" parameterType="Integer" resultType="mul.camp.a.dto.boardDto">
+		SELECT * FROM Y_BOARD
+		WHERE IDX = #{idx}
+	</select>
+	<update id="del" parameterType="Integer">
+		UPDATE Y_BOARD
+		SET DEL = 'Y'
+		WHERE IDX = #{idx}
+	</update>
+	<update id="update" parameterType="mul.camp.a.dto.boardDto">
+		UPDATE Y_BOARD
+		SET TITLE = #{title}, SPOT = #{spot}, CONTENT = #{content}
+		WHERE IDX = #{idx} 
+	</update>
+	<select id="bbslist" resultType="mul.camp.a.dto.boardDto" parameterType="mul.camp.a.dto.BbsParam">
+	   SELECT *
+	   FROM Y_BOARD
+	   <choose>
+		   <when test="choice !=null and choice !='' and search !=null and search !=''">
+		   <choose>
+		      <when test="choice =='title'">
+		         WHERE DEL = 'N' AND TITLE LIKE '%'||#{search}||'%'           
+		      </when>
+		      <when test="choice =='content'">
+		         WHERE DEL = 'N' AND CONTENT LIKE '%'||#{search}||'%' 
+		      </when>
+		      <when test="choice =='write'">
+		         WHERE DEL = 'N' AND ID=#{search} 
+		      </when>
+		      <when test="choice == 'location'">
+		         WHERE DEL = 'N' AND SPOT=#{search} 
+		      </when>
+		   </choose>
+		   </when> 
+	   		<otherwise>
+	   			WHERE DEL = 'N'
+	   		</otherwise>
+	   </choose>
+	   ORDER BY IDX DESC
+	</select>
+</mapper>

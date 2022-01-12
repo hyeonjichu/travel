@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+    *{margin: 0; padding: 0;}
+    a{text-decoration: none; }
+    li{list-style: none;}
+    .main-header{padding: 0 30px; background: linear-gradient(to right, gray, gray 50%, #f2f2f2 50%,#f2f2f2 );}
+    .visual{ width: 1110; height: 550px; margin-top: 55px; text-align: center;  margin-bottom: 5px;} 
+    .img{display: inline-block;}
+    .main-word{margin-top: 120px;
+              font-size: 50px;
+            text-align: center;
+            overflow: hidden;
+            font-family: 'Baskervville', serif; }
+    h1{position: absolute; left: 30px; top: 0; }
+    .header-search-bar{position: absolute; right:30px ; top: 0; display: flex; width: 170px; margin-top: 20px; }
+    .submit .text{flex: 1;}
+    .text{display: block;
+            float: left;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            box-shadow: inset 0 1px 1px rgba(0, 0,0, 0.05);
+            width: 120px;
+            height: 25px;
+            padding: 0 0 0 10px;
+            font-size: 12px;
+            color: #555555;
+            margin-top: 2px;
+            border-radius: 10px 0 0 10px;} 
+
+     .submit{ margin-top: 2px;
+        display: block;
+            float: left;
+            width: 70px; height: 27px;
+            border: 1px solid #cccccc;
+            margin-left: -1px;
+            border-radius: 0 10px 10px 0;
+            }   
+    .menu ul li a {color: black; font-weight: bold;}           
+    .header-tag {background: #353535; position: absolute; padding: 0 232px; left: 0; top: 0; width: 100%; box-sizing: border-box; z-index: 30;}
+    .header-tag nav{position: relative; z-index: 30; border-bottom: 1px solid rgba(255, 255, 255, .5); text-align: center; font-size: 0;}
+    .header-tag nav > ul { display: inline-block;  overflow: hidden; height: 70px; transition: all 0.5s;}
+    .header-tag nav > ul:hover {overflow: visible;}
+    .header-tag nav + div {position: absolute; left: 0; top: 0; width: 100%; height: 0; background:#353535; 
+    opacity: 0; z-index: 29px; transition: all 0.5s;}
+    .header-tag nav:hover + div { height: 330px; opacity: 1;}
+    .header-tag nav > ul > li {display: inline-block; position: relative;}
+    .header-tag nav > ul > li > a {color: white; display: block; position: relative; width: 150px; height: 69px; font-size: 18px; line-height: 69px;}
+    .header-tag nav > ul > li > a::after{content: ""; position: absolute; left: 50px; width: 0; bottom: -1px; 
+    height: 2px; background:#fff; transition: all 0.5s;}
+    .header-tag nav > ul > li:hover > a:after{left: 0; width: 100%;}
+
+    .header-tag nav > ul ul { position: absolute; width: 100px; text-align: center; height: 230px; padding: 22px 0 0;  opacity: 0; transition: all 0.5s;}
+    .header-tag nav > ul:hover ul{ opacity: 1;}
+
+    .header-tag nav > ul ul li{line-height: 39px;}
+    .header-tag nav > ul ul a {position: relative; font-size: 14px; color: white; transition: all 0.5s; }  
+
+    .header-tag nav > ul ul a:hover {color:#2acef1;}  
+    .header-tag nav > ul ul a::after{content: ""; position: absolute;  left: 5px; width: 0; bottom: -7px; 
+    height: 2px; background: #2acef1; transition: all 0.5s;}  
+    .header-tag nav > ul ul a:hover::after{left: 0; width: 100%;}
+    
+    .menu{border-top: 1px solid black; border-bottom: 1px solid black ;  text-align: center;border-top: 1px solid #d4cbcb;
+        border-bottom: 1px solid #d4cbcb;
+        margin: o auto;
+        }
+    .menu ul li{display: inline-block; position: relative; width: 200px; font-size: 20px; margin-top: 10px; margin-bottom: 10px;}
+
+    .content{margin-top: 120px; margin-bottom: 20px; }
+    .content p {font-size: 30px; text-align: center; font-family: 'Roboto Mono', monospace;}
+    
+    .content-picture {text-align: center;} 
+    .content-picture ul li{
+        border: 1px solid  #d4cbcb;
+        width: 350px; height: 350px;
+        display: inline-block;
+        margin: 15px;
+    }
+    .content-text{text-align: center;}
+    .content-text ul li{display: inline-block;
+        width: 380px; height: 350px;}
+    .content-text ul a{color: black;}
+    
+    footer{
+        margin-top: 0px;
+        height: 0px;
+        background-color: #eee;
+        text-align: center;
+        border: 0px solid  #eee;
+    }
+    footer ul li {margin-top: 10px;}
+
+   

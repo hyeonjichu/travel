@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="Y_MEMBER">
+
+<insert id="addmember" parameterType="mul.camp.a.dto.MemberDto">
+	INSERT INTO Y_MEMBER(ID, PW, NAME, GENDER, BIRTH, EMAIL, PHONE, NICKNAME, DEL)
+	VALUES(#{id}, #{pw}, #{name}, #{gender}, #{birth}, #{email}, #{phone}, #{nickName}, 'n')
+</insert>
+
+<select id="getId" parameterType="String" resultType="Integer">
+	SELECT COUNT(*)
+	FROM Y_MEMBER
+	WHERE ID=#{id}
+</select>
+
+<select id="login" parameterType="mul.camp.a.dto.MemberDto" 
+	resultType="mul.camp.a.dto.MemberDto">
+	SELECT ID, NAME, EMAIL
+	FROM Y_MEMBER
+	WHERE ID=#{id} AND PW=#{pw}
+</select>
+
+
+</mapper>
+
+
