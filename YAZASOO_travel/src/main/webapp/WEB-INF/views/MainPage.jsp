@@ -29,10 +29,6 @@
     
     <link rel="shortcut icon" type="image/x-icon" href="image/YAZASOO.png">
     <title>YAZASOO</title>
-    
-    
-
-
 </head>
 <body>
    
@@ -44,11 +40,11 @@
                 <li><a href="#">날씨</a>
                     <ul>
                         <li><a href="https://weather.naver.com/">오늘의 날씨</a></li>
-                        <li><a href="#">계절별 추이</a></li>
-                        <li><a href="#">제철 음식</a></li>
+                        <!-- <li><a href="#">계절별 추이</a></li>
+                        <li><a href="#">제철 음식</a></li> -->
                     </ul>
                 </li>   
-                <li><a href="#">맛집리스트</a>
+                <!-- <li><a href="#">맛집리스트</a>
                     <ul>
                         <li><a href="#">오늘의 트렌드</a></li>
                         <li><a href="#">당일 세일~</a></li>
@@ -61,15 +57,24 @@
                         <li><a href="#">꼭 가봐야 할 곳</a></li>
                         <li><a href="#">야경 10선</a></li>
                     </ul>
-                </li>    
+                </li>   -->  
                 <li><a href="board.do">지역별게시판</a>
                      <ul>
-                        <li><a href="#">방명록</a></li>
-                        <li><a href="#">자료실</a></li>
-                        <li><a href="#">분실물센터</a></li>
+                        <li><a href="board.do">전체</a></li>
+                        <li><a href="board.do?spot=seoul">서울</a></li>
+                        <li><a href="board.do?spot=gyeonggi">경기도</a></li>
+                        <li><a href="board.do?spot=gangwon">강원도</a></li>
                     </ul>
                 </li>    
-                <li><a href="#">MyPage</a></li>
+                <li><a href="#">지역별게시판</a>
+                     <ul>
+                        <li><a href="board.do?spot=chungcheong">충청도</a></li>
+                        <li><a href="board.do?spot=gyeongsang">경상도</a></li>
+                        <li><a href="board.do?spot=jeolla">전라도</a></li>
+                        <li><a href="board.do?spot=jeju">제주도</a></li>
+                    </ul>
+                </li>    
+                <li><a href="mypage.do">MyPage</a></li>
                 <!-- <li><a href="Join.html">Sing up</a></li> -->
                 <li><a href="logout.do">Log-out</a></li>
             </ul>

@@ -25,7 +25,21 @@
 	
 	<!-- spring에서 처리할 수 없는 요청은 tomcat에 위임 -->
 	<mvc:default-servlet-handler/>
-			
+<!-- 	
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*.do"/>
+            <mvc:exclude-mapping path="/log*.do"/>
+            <bean class="mul.camp.a.util.AuthInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors> -->
+    
+    <!-- <interceptors>
+        <interceptor>
+            <mapping path="/board/*.do"/>
+            <beans:ref bean="LoginInterceptor"/>
+        </interceptor>
+    </interceptors> -->
 </beans>
 
 

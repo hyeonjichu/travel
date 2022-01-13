@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import mul.camp.a.dto.BbsParam;
 import mul.camp.a.dto.boardDto;
+import mul.camp.a.dto.commentDto;
 import mul.camp.a.service.boardService;
 
 @Controller
-public class MainController {
+public class BoardController {
 
-private static Logger logger = LoggerFactory.getLogger(MainController.class);
+private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Autowired
 	boardService service;
@@ -39,6 +40,32 @@ private static Logger logger = LoggerFactory.getLogger(MainController.class);
 	public String board(Model model, BbsParam param) {
 		logger.info("MainController board() " + new Date());
 		
+		if(param.getSpot() != null && !param.getSpot().equals("")) {
+			if(param.getSpot().equals("seoul")) {
+				param.setSpot("서울");
+			}
+			else if(param.getSpot().equals("gyeonggi")) {
+				param.setSpot("경기도");
+			}
+			else if(param.getSpot().equals("gangwon")) {
+				param.setSpot("강원도");
+			}
+			else if(param.getSpot().equals("chungcheong")) {
+				param.setSpot("충청도");
+			}
+			else if(param.getSpot().equals("gyeongsang")) {
+				param.setSpot("경상도");
+			}
+			else if(param.getSpot().equals("jeolla")) {
+				param.setSpot("전라도");
+			}
+			else if(param.getSpot().equals("jeju")) {
+				param.setSpot("제주도");
+			}
+			model.addAttribute("spot", param.getSpot());
+		}else {
+			model.addAttribute("spot","");
+		}
 		List<boardDto> list = service.bbslist(param);
 		model.addAttribute("bbslist", list);
 		
@@ -51,6 +78,9 @@ private static Logger logger = LoggerFactory.getLogger(MainController.class);
 		
 		boardDto dto = service.detail(idx);
 		model.addAttribute("detail", dto);
+		
+		List<commentDto> list = service.commentlist(idx);
+		model.addAttribute("commentlist", list);
 		
 		return "detail";
 	}
@@ -111,4 +141,31 @@ private static Logger logger = LoggerFactory.getLogger(MainController.class);
 		}
 		
 	}
+	
+	@RequestMapping(value="commentWrite.do", method = RequestMethod.GET)
+	public String commentWrite(commentDto dto) {
+		logger.info("MainController commentWrite() " + new Date());
+		System.out.println(dto.toString());
+		
+		int chk = service.commentWrite(dto);
+		System.out.println(chk);
+		if(chk == 1) {
+			return "redirect:/detail.do?idx="+dto.getBidx();
+		}else {
+			return "redirect:/board.do";
+		}
+	}
+	
+	@RequestMapping(value="commentDel.do", method=RequestMethod.GET)
+	public String commentDel(commentDto dto) {
+		logger.info("MainController commentDel() " + new Date());
+		int chk = service.commentDel(dto);
+		if(chk == 1) {
+			return "redirect:/detail.do?idx="+dto.getBidx();
+		}else {
+			return "redirect:/board.do";
+		}
+	}
+	
+	
 }

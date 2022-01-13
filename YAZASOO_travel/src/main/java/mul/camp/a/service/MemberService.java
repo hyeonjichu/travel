@@ -9,4 +9,8 @@ public interface MemberService {
 	int getId(String id);
 	
 	MemberDto login(MemberDto mem);
+	
+	Object mypage(MemberDto mem);
+	
+	int getEmail(String email);
 }

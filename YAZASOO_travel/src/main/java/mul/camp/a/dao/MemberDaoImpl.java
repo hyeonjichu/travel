@@ -31,7 +31,16 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne(ns + "login", mem);
 	}
 	
+	@Override
+    public MemberDto mypage(MemberDto mem) {
+      return null;
+    }
 	
+	@Override
+   public int getEmail(String email) {
+      int count = session.selectOne(ns + "getEmail", email);
+      return count;
+   }
 	
 }
 

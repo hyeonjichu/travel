@@ -8,6 +8,7 @@ public class boardDto implements Serializable{
 	private String content;//내용
 	private String id;//작성자
 	private String regDate;//작성일자
+	private String text;//댓글
 	private int cnt;//조회수
 	private String del;//삭제여부
 	private String spot;//지역
@@ -22,7 +23,14 @@ public class boardDto implements Serializable{
 		this.spot = spot;
 	}
 	
-	public boardDto(int idx, String title, String content, String id, String regDate, int cnt, String del,
+	public boardDto(int idx, String text, String id) {
+		super();
+		this.idx = idx;
+		this.text = text;
+		this.id = id;
+	}
+	
+	public boardDto(int idx, String title, String content, String id, String regDate, String text, int cnt, String del,
 			String spot) {
 		super();
 		this.idx = idx;
@@ -33,6 +41,15 @@ public class boardDto implements Serializable{
 		this.cnt = cnt;
 		this.del = del;
 		this.spot = spot;
+		this.text = text;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public int getIdx() {

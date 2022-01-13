@@ -28,16 +28,16 @@ public class MemberController {
 	
 	@RequestMapping(value = "login.do", method = RequestMethod.GET)
 	public String login() {
-		logger.info("MemberController login() " + new Date());		
+		logger.info("MemberController login() " + new Date());	
+		
 		return "login";
-	//	return "loginCSS";
 	}
 	
 	@RequestMapping(value = "regi.do", method = RequestMethod.GET)
 	public String regi() {
 		logger.info("MemberController regi() " + new Date());
+		
 		return "regi";
-	//	return "regiCSS";
 	}
 	
 	@RequestMapping(value = "regiAf.do", method = RequestMethod.POST)
@@ -85,27 +85,33 @@ public class MemberController {
 		}		
 	}
 	
-	
 	@RequestMapping(value = "logout.do", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
 
 		session.invalidate();
 
 		return "redirect:/login.do";
-
 	}
 	
+	@RequestMapping(value = "mypage.do", method = RequestMethod.GET)
+	   public String mypage(MemberDto dto) {
+	      logger.info("MainController mypageAf()" + new Date());
+	   
+	      return "mypage";
+	}
+	
+	@ResponseBody
+   @RequestMapping(value = "emailcheck.do", method = RequestMethod.POST)
+   public String emailcheck(String email) {
+      logger.info("MemberController emailcheck() " + new Date());      
+      System.out.println("email:" + email);
+      int count = service.getEmail(email);
+      System.out.println("count:" + count);      
+      if(count > 0) {   // 이메일이 있음
+         return "NO";
+      }else {         // 이메일이 없음
+         return "YES";
+      }      
+   }
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

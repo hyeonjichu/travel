@@ -9,4 +9,8 @@ public interface MemberDao {
 	int getId(String id);
 	
 	MemberDto login(MemberDto mem);
+	
+	MemberDto mypage(MemberDto mem);
+	
+	int getEmail(String email);
 }

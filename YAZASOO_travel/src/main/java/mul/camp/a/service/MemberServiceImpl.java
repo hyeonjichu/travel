@@ -29,5 +29,13 @@ public class MemberServiceImpl implements MemberService{
 		return dao.login(mem);
 	}
 	
+	@Override
+   public Object mypage(MemberDto mem) {
+      return null;
+   }
 	
+	@Override
+   public int getEmail(String email) {
+      return dao.getEmail(email);
+   }
 }

@@ -7,6 +7,10 @@
 		INSERT INTO Y_BOARD(IDX, TITLE, CONTENT, ID, REGDATE, CNT, DEL, SPOT) 
 		VALUES(bidx.NEXTVAL, #{title}, #{content}, #{id}, SYSDATE, 0, 'N', #{spot})
 	</insert>
+	<insert id="commentWrite" parameterType="mul.camp.a.dto.commentDto">
+		INSERT INTO Y_COMMENT(IDX, BIDX, TEXT, REGDATE, ID, DEL) 
+		VALUES(cidx.NEXTVAL, #{bidx}, #{text}, SYSDATE, #{id}, 'N')
+	</insert>
 	<select id="detail" parameterType="Integer" resultType="mul.camp.a.dto.boardDto">
 		SELECT * FROM Y_BOARD
 		WHERE IDX = #{idx}
@@ -16,11 +20,22 @@
 		SET DEL = 'Y'
 		WHERE IDX = #{idx}
 	</update>
+	<update id="commentDel" parameterType="mul.camp.a.dto.commentDto">
+		UPDATE Y_COMMENT
+		SET DEL = 'Y'
+		WHERE IDX = #{idx}
+	</update>
 	<update id="update" parameterType="mul.camp.a.dto.boardDto">
 		UPDATE Y_BOARD
 		SET TITLE = #{title}, SPOT = #{spot}, CONTENT = #{content}
 		WHERE IDX = #{idx} 
 	</update>
+	<select id="commentlist" parameterType="Integer" resultType="mul.camp.a.dto.commentDto">
+		SELECT *
+		FROM Y_COMMENT
+		WHERE BIDX = #{idx} AND DEL = 'N'
+		ORDER BY REGDATE DESC
+	</select>
 	<select id="bbslist" resultType="mul.camp.a.dto.boardDto" parameterType="mul.camp.a.dto.BbsParam">
 	   SELECT *
 	   FROM Y_BOARD
@@ -36,13 +51,16 @@
 		      <when test="choice =='write'">
 		         WHERE DEL = 'N' AND ID=#{search} 
 		      </when>
-		      <when test="choice == 'location'">
-		         WHERE DEL = 'N' AND SPOT=#{search} 
-		      </when>
 		   </choose>
+		   <if test="spot != null and spot != ''">
+		   		AND SPOT = #{spot}
+		   </if>
 		   </when> 
 	   		<otherwise>
 	   			WHERE DEL = 'N'
+		   		<if test="spot != null and spot != ''">
+			   		AND SPOT = #{spot}
+			   </if>
 	   		</otherwise>
 	   </choose>
 	   ORDER BY IDX DESC

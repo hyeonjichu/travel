@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import mul.camp.a.dto.BbsParam;
 import mul.camp.a.dto.boardDto;
+import mul.camp.a.dto.commentDto;
 
 @Repository
 public class boardDaoImpl implements boardDao {
@@ -41,5 +42,20 @@ public class boardDaoImpl implements boardDao {
 	@Override
 	public List<boardDto> bbslist(BbsParam param) {
 		return session.selectList(ns + "bbslist", param);
+	}
+
+	@Override
+	public int commentWrite(commentDto dto) {
+		return session.insert(ns+"commentWrite", dto);
+	}
+
+	@Override
+	public List<commentDto> commentlist(int idx) {
+		return session.selectList(ns+"commentlist", idx);
+	}
+
+	@Override
+	public int commentDel(commentDto dto) {
+		return session.update(ns+"commentDel", dto);
 	}
 }

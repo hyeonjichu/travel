@@ -1,97 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<style type="text/css">
-.center{
-	margin: auto;
-	width: 60%;
-	border: 3px solid #0000ff;
-	padding: 10px;	 
-}
-</style>
-
+<title>Registration</title>
+<link rel="stylesheet" type="text/css" href="css/regi.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<link rel="shortcut icon" type="image/x-icon" href="image/YAZASOO.png">
 </head>
 <body>
-
-<h2>회원가입</h2>
-
-<div class="center">
-
-<form id="frm" action="regiAf.do" method="post">
-
-<table border="1">
-<tr>
-	<th>아이디</th>
-	<td>
-		<input type="text" name="id" id="id" size="20">&nbsp;<input type="button" id="btn" value="확인"><br>
-		<p id="idcheck" style="font-size: 8px"></p>		
-	</td>
-</tr>
-<tr>
-	<th>비밀번호</th>
-	<td>
-		<input type="password" name="pw" id="pw" size="20">
-	</td>
-</tr>
-<tr>
-	<th>비밀번호 확인</th>
-	<td>
-		<input type="password" name="pw2" id="pw2" size="20">
-	</td>
-</tr>
-<tr>
-	<th>이름</th>
-	<td>
-		<input type="text" name="name" id="name" size="20">
-	</td>
-</tr>
-<tr>
-	<th>성별</th>
-	<td>
-		<input type="radio" name="gender" size="20" value="M" checked>남자
-		<input type="radio" name="gender" size="20" value="F">여자
-	</td>
-</tr>
-<tr>
-	<th>생년월일</th>
-	<td>
-		<input type="text" name="birth" id="birth" size="20">
-	</td>
-</tr>
-<tr>
-	<th>이메일</th>
-	<td>
-		<input type="text" name="email" id="email" size="20">
-	</td>
-</tr>
-<tr>
-	<th>전화번호</th>
-	<td>
-		<input type="text" name="phone" id="phone" size="20">
-	</td>
-</tr>
-<tr>
-	<th>별명</th>
-	<td>
-		<input type="text" name="nickName" id="nickName" size="20">
-	</td>
-</tr>
-<tr>
-	<td colspan="2">
-		<button type="button" onclick="account()">회원가입</button>
-	</td>
-</tr>
-</table>
-
-</form>
- 
-</div>
+<div class="main">
+    <div class="register">
+      <h1>YAZASOO</h1>
+      <form id="frm" action="regiAf.do" method="post">
+        <label>아이디</label><br>
+        <input type="text" class="put" name="id" id="id" placeholder="아이디를 입력해주세요">&nbsp;<input type="button" id="btn" value="확인"><br>
+        <p id="idcheck" style="font-size: 8px"></p>	
+        <br>
+        <label>비밀번호</label>
+        <br>
+        <input type="password" class="put" name="pw" id="pw" placeholder="비밀번호를 입력해주세요">
+        <br><br>
+        <label>비밀번호 확인</label>
+        <br>
+        <input type="password" class="put" name="pw2" id="pw2" placeholder="비밀번호를 다시 입력해주세요">
+        <br><br>
+        <label>이름</label>
+        <br>
+        <input type="text" class="put" name="name" id="name" placeholder="이름을 입력해주세요">
+        <br><br>
+        <label>성별</label>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" id="male" value="남">
+        &nbsp;
+        <span id="male">남</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" id="female" value="여">
+        &nbsp;
+        <span id="female">여</span>
+        <br><br>
+        <label>생년월일</label>
+        <br>
+        <input type="date" class="put" name="date" id="date">
+        <br><br>
+        <label>이메일</label>
+        <br>
+        <input type="email" class="put" name="email" id="email" placeholder="이메일을 입력해주세요">&nbsp;<input type="button" id="btn" value="확인"><br>
+        <br><br>
+        <label>이름</label>
+        <br>
+        <input type="text" class="put" name="phone" id="phone" placeholder="전화번호를 입력해주세요">
+        <br><br>
+        <label>별명</label>
+        <br>
+        <input type="text" class="put" name="nickName" id="nickName" placeholder="별명을 입력해주세요">
+        <br><br>
+        <button type="button" onclick="account()">회원가입</button>
+      </form>
+    </div>
+  </div>
 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -117,6 +88,27 @@ $(document).ready(function () {
 			}
 		});
 	});	
+	$("#btnEmail").click(function () {
+		$.ajax({
+			url:"emailcheck.do",
+			type:"post",
+			data:{ email:$("#email").val() },
+			success:function( msg ){
+			
+				if(msg == "YES"){
+					$("#emailcheck").css("color", "#0000ff");
+					$("#emailcheck").html("사용할 수 있는 이메일입니다");
+				}else{
+					$("#emailcheck").css("color", "#ff0000");
+					$("#emailcheck").html("사용 중인 이메일입니다");
+					$("#email").val("");
+				}			
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+	});	
 });
 
 $(function(){
@@ -133,6 +125,8 @@ $(function(){
 });
 
 function account() {
+//	alert('account');
+
 	if($("#id").val() == ''){
 		alert('아이디를 입력해 주십시오');
 		$("#id").focus();
@@ -141,9 +135,17 @@ function account() {
 		alert('패스워드를 입력해 주십시오');
 		$("#pw").focus();
 	}
+	else if($("#pw2").val() == ''){
+		alert('패스워드를 확인해 주십시오');
+		$("#pw2").focus();
+	}
 	else if($("#name").val() == ''){
-		alert('이름를 입력해 주십시오');
+		alert('이름을 입력해 주십시오');
 		$("#name").focus();
+	}
+	else if($("#gender").val() == ''){
+		alert('성별을 입력해 주십시오');
+		$("#gender").focus();
 	}
 	else if($("#birth").val() == ''){
 		alert('생년월일을 입력해 주십시오');
@@ -167,16 +169,5 @@ function account() {
 }
 
 </script>
-
-
-
-
 </body>
 </html>
-
-
-
-
-
-
-
