@@ -5,19 +5,22 @@
 <mapper namespace="Y_MEMBER">
 	<insert id="addmember" parameterType="mul.camp.a.dto.MemberDto">
 		INSERT INTO Y_MEMBER(ID, PW, NAME, GENDER, BIRTH, EMAIL, PHONE, NICKNAME, DEL)
-		VALUES(#{id}, #{pw}, #{name}, #{gender}, #{birth}, #{email}, #{phone}, #{nickName}, 'n')
+		VALUES(#{id}, #{pw}, #{name}, #{gender}, #{birth}, #{email}, #{phone}, #{nickName}, 'N')
 	</insert>
+	
 	<select id="getId" parameterType="String" resultType="Integer">
 		SELECT COUNT(*)
 		FROM Y_MEMBER
 		WHERE ID=#{id}
 	</select>
+	
 	<select id="login" parameterType="mul.camp.a.dto.MemberDto" 
 		resultType="mul.camp.a.dto.MemberDto">
-		SELECT ID, NAME, EMAIL
+		SELECT ID, NAME, EMAIL,AUTH
 		FROM Y_MEMBER
 		WHERE ID=#{id} AND PW=#{pw}
 	</select>
+	
 	<select id="getEmail" parameterType="String" resultType="Integer">
 		SELECT COUNT(*)
 		FROM Y_MEMBER

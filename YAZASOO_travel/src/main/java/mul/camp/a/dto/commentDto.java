@@ -19,6 +19,12 @@ public class commentDto implements Serializable{
 		this.id = id;
 		this.del = del;
 	}
+	
+	public commentDto(int idx, String text, String id) {
+		this.idx = idx;
+		this.text = text;
+		this.id = id;
+	}
 
 	public commentDto() {
 		

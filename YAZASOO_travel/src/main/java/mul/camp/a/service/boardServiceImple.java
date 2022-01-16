@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import mul.camp.a.dao.boardDao;
 import mul.camp.a.dto.BbsParam;
+import mul.camp.a.dto.MemberDto;
 import mul.camp.a.dto.boardDto;
 import mul.camp.a.dto.commentDto;
+import mul.camp.a.dto.oneOoneDto;
 
 @Service
 public class boardServiceImple implements boardService {
@@ -59,5 +61,54 @@ public class boardServiceImple implements boardService {
 	public int commentDel(commentDto dto) {
 		return dao.commentDel(dto);
 	}
+
+	@Override//1:1 글 등록
+	   public int oneOoneInsert(oneOoneDto dto) {
+	      
+	      return dao.oneOoneInsert(dto);
+	   }
+
+	   @Override//1:1글 리스트 불러오기
+	   public List<oneOoneDto> onelist(String id) {
+	      
+	      return dao.onelist(id);
+	   }
+
+	   @Override// 문의 내용 불러오기
+	   public oneOoneDto olist(int idx) {
+	      //
+	      return dao.olist(idx);
+	   }
+
+	   @Override
+	   public int qdel(int idx) { //문의내용 지우기
+	      
+	      return dao.qdel(idx);
+	   }
+
+	   @Override
+	   public List<oneOoneDto> qalllist() {//문의내용 모두불러오기 관리자용
+	      
+	      return dao.qalllist();
+	   }
+
+	   @Override
+	   public MemberDto chk(String id) {
+	      
+	      return dao.chk(id);
+	   }
+
+	   @Override
+	   public int readcnt(int idx) {
+	      
+	      return dao.readcnt(idx);
+	   }
+
+	@Override
+	public int qcommentWrite(commentDto dto) {
+		return dao.qcommentWrite(dto);
+	}
+
+
 
 }

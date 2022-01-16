@@ -7,11 +7,39 @@ boardDto dto = (boardDto)request.getAttribute("detail");
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+ 	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/abc.css" />
+    <link rel="stylesheet" type="text/css" href="css/qwe.css" />
+    <script type="text/javascript" src="js/board.js"></script>
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Bootstrap core CSS -->
+   <!-- <link href="/webjars/bootstrap/4.5.3/css/bootstrap.css" rel="stylesheet"> -->
+    
+     <!-- Bootstrap Icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    
+    <!-- SimpleLightbox plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+    
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/abc.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="image/YAZASOO.png">
+    <title>YAZASOO</title>
 </head>
 <body>
-<h1>update.jsp</h1>
+<header id="main-header">
+<jsp:include page="./headerMenu.jsp"></jsp:include>
+</header>
 <div align="center">
 	<form action="boardUpdateAf.do" method="post" id="frm">
 		<table border="1" style="width:1000px">
@@ -62,6 +90,7 @@ boardDto dto = (boardDto)request.getAttribute("detail");
 		</table>
 	</form>
 </div>
+<jsp:include page="./footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 function boardUpdate(){

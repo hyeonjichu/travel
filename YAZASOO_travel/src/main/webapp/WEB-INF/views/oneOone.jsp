@@ -1,8 +1,8 @@
-<%@page import="mul.camp.a.dto.BbsParam"%>
 <%@page import="mul.camp.a.dto.MemberDto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
-MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
+MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@ MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/qwe.css" />
     <link rel="stylesheet" type="text/css" href="css/abc.css" />
-    <script type="text/javascript" src="js/write.js"></script>
+    
 	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     
@@ -28,64 +28,69 @@ MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
     
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/qwe.css" rel="stylesheet" />
-    
+    <link href="css/abc.css" rel="stylesheet" />
     
     <link rel="shortcut icon" type="image/x-icon" href="image/YAZASOO.png">
-	<title>YAZASOO</title>
+   
+    <title>1:1 문의하기</title>
+<br>
+<br>
+<hr>
 </head>
-
 <body>
+<script type="text/javascript" src="js/oneOone.js"></script>
 <header id="main-header">
 <jsp:include page="./headerMenu.jsp"></jsp:include>
 </header>
-<div align="center">
-<h1 align="center">write.jsp</h1>
-	<form action="writeAf.do" method="post" id="frm">
-		<table border="1" style="width:1000px">
+
+<body>
+	<form action="oneOoneAf.do" method="post" id="frm">
+	
+		<table>
+		
 			<tr>
-				<th>아이디</th>
-				<td>
-					<input type="text" name="id" size="70px" value="<%=mem.getId() %>" readonly>
-					<!-- <input type="text" name="id" size="70px" value="" readonly> -->
-				</td>
+				<th>작성자 </th>
+				<td><input type="text" name="id" value="<%=mem.getId()%>"
+					readonly></td>
+			<tr>
+				<th>분류 </th>
+				<td><select name="qtype" id="qtype">
+						<option value="분류 선택">분류 선택</option>
+						<option value="계정 관리">계정 관리</option>
+						<option value="내글 관리">내글 관리</option>
+						<option value="유저 신고">유저 신고</option>
+				</select></td>
 			</tr>
 			<tr>
-				<th>제목</th>
-				<td>
-					<input type="text" id="title" name="title" size="70px" >
+				<th>제목 </th>
+				<td><textarea rows="1" cols="100" name="qtitle" id="qtitle"></textarea>
 				</td>
 			</tr>
+
 			<tr>
-				<th>지역</th>
-				<td>
-					<select name="spot" id="spot">
-						<option value="서울" selected>서울</option>
-						<option value="경기도">경기도</option>
-						<option value="강원도">강원도</option>
-						<option value="충청도">충청도</option>
-						<option value="경상도">경상도</option>
-						<option value="전라도">전라도</option>
-						<option value="제주도">제주도</option>
-					</select>
-				</td>
+				<th>내용 </th>
+				<td><textarea rows="10" cols="100" name="qcontent"
+						id="qcontent"></textarea></td>
 			</tr>
 			<tr>
-				<th>내용</th>
-				<td>
-					<textarea rows="20" cols="80" id="content" name="content"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="button" onclick="boardWrite()">글쓰기</button>&nbsp;
-					<button type="button" onclick="location='board.do'">돌아가기</button>
+				<td align="right" colspan="3">
+					<button type="button" onclick="qWrite()">작성</button>
+					<br><br>
+					<hr>
+					<br>
+					<%-- <button type="button" onclick="go(<%=mem.getId()%>)">내 문의내역 보s기</button><br><br>정확하고 빠르게 답변드리겠습니다. --%>
+					<button type="button" onclick="location.href='myq.do?id=<%=mem.getId()%>'"/>내 문의내역 보기</button><br><br>정확하고 빠르게 답변드리겠습니다
 				</td>
 			</tr>
 		</table>
 	</form>
-</div>
 <jsp:include page="./footer.jsp"></jsp:include>
 </body>
 
 </html>
+
+
+
+
+
+

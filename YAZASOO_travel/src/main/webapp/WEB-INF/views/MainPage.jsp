@@ -1,6 +1,9 @@
+<%@page import="mul.camp.a.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -44,20 +47,6 @@
                         <li><a href="#">제철 음식</a></li> -->
                     </ul>
                 </li>   
-                <!-- <li><a href="#">맛집리스트</a>
-                    <ul>
-                        <li><a href="#">오늘의 트렌드</a></li>
-                        <li><a href="#">당일 세일~</a></li>
-                        <li><a href="#">상품리스트</a></li>
-                    </ul>
-                </li>   
-                <li><a href="#">랜드마크</a>
-                    <ul>
-                        <li><a href="#">오늘의 집</a></li>
-                        <li><a href="#">꼭 가봐야 할 곳</a></li>
-                        <li><a href="#">야경 10선</a></li>
-                    </ul>
-                </li>   -->  
                 <li><a href="board.do">지역별게시판</a>
                      <ul>
                         <li><a href="board.do">전체</a></li>
@@ -66,7 +55,7 @@
                         <li><a href="board.do?spot=gangwon">강원도</a></li>
                     </ul>
                 </li>    
-                <li><a href="#">지역별게시판</a>
+                <li><a href="board.do">지역별게시판</a>
                      <ul>
                         <li><a href="board.do?spot=chungcheong">충청도</a></li>
                         <li><a href="board.do?spot=gyeongsang">경상도</a></li>
@@ -74,16 +63,18 @@
                         <li><a href="board.do?spot=jeju">제주도</a></li>
                     </ul>
                 </li>    
+                 <li><a href="oneOone.do?auth=<%=mem.getAuth()%>&id=<%=mem.getId()%>">1:1문의</a>
+                </li> 
                 <li><a href="mypage.do">MyPage</a></li>
                 <!-- <li><a href="Join.html">Sing up</a></li> -->
                 <li><a href="logout.do">Log-out</a></li>
             </ul>
-            <div class="header-search">
+            <!--  <div class="header-search">
             <form class="header-search-bar">
                 <input type="serach" class="text">
                 <input type="submit" class="submit" value="search">
             </form>
-        </div>
+        </div>-->
         </nav>
         <div></div>
         </div>
@@ -94,25 +85,7 @@
             </div>
             
         </div>
-
-        
-       <!--  <div class="menu">
-            <ul>
-                <li><a href="https://weather.naver.com/">날씨</a></li>
-                <li><a href="#">맛집리스트</a></li>
-                <li><a href="#">랜드마크</a></li>
-                <li><a href="#">지역별 게시판</a></li>
-                <li><a href="#">나의 정보</a></li>
-            </ul>
-        </div>  -->
     </header>
-        <footer>
-            <ul>
-                <li><span>개인정보처리방침</span> &nbsp;|&nbsp; YAZASOO 회원약관 &nbsp;| &nbsp;이메일무단수집거부&nbsp;&nbsp;오시는길 &nbsp;|&nbsp;부산광역시 금정구</li><br>
-                <li>주소 : 부산광역시 금정구 OOO OOO &nbsp;|&nbsp;대표 OOO</li>
-                <li>1:1문의&nbsp;|&nbsp;OOO OOO OOO</li>
-                <li>이용해 주셔서 감사합니다</li>
-            </ul>
-        </footer>
+<jsp:include page="./footer.jsp"></jsp:include>
     </body>
     </html>

@@ -67,21 +67,19 @@ public class MemberController {
 		}		
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "loginAf.do", method = RequestMethod.POST)
 	public String loginAf(MemberDto dto, HttpServletRequest req) { // request == HttpServletRequest
 		logger.info("MemberController loginAf() " + new Date());		
-		
+		System.out.println(dto.toString());
 		MemberDto mem = service.login(dto);
 		if(mem != null) {	// 정상적인 로그인
-			
 			// login 정보를 저장 -> session 
 			req.getSession().setAttribute("login", mem);			
-			
-			return "redirect:/MainPage.do";
+			return "success";
 		}
 		else {		// 회원정보에 없음
-			
-			return "redirect:/login.do";
+			return "error";
 		}		
 	}
 	

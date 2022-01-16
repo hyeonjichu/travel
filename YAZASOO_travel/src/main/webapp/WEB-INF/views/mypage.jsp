@@ -22,6 +22,7 @@
 }
 </style>
 </head>
+
 <body>
 	<h1>마이 페이지</h1>
 	<form action="mypageAf" metgod = "get">

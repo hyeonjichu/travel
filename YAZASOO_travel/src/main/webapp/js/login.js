@@ -20,7 +20,7 @@
       }
   }); //클릭할때 밸류값 지정
   
-  function login() {
+  /*function login() {
     
     if($("#id").val().trim() == ""){
       
@@ -29,7 +29,7 @@
     }else{ 
       $("#frm").submit();
     }
-  } //로그인 시 공간 처리
+  } //로그인 시 공간 처리*/
   
   let user_id = $.cookie("user_id");	// cookie에서 데이터를 산출	= aaa, bbb
                     // model.addattribute("list", list)
@@ -58,4 +58,41 @@
       $.removeCookie("user_id", { path:'./' });
     }
   });
+  
+  function enterkey() {
+        if (window.event.keyCode == 13) {
+             login();
+        }
+	}
+
+  function login() {
+   let id = $("#id").val();
+   let pw = $("#pw").val();
+   
+   if($("#id").val().trim() == ""){
+        alert("id를 입력하세요");
+        $("#id").focus(); 
+   }else if($("#pw").val().trim() == ""){
+        alert("pw를 입력하세요");
+        $("#pw").focus();
+   }else{
+     $.ajax({
+      url:"loginAf.do",
+      type:"post",
+      data:{"id":id, "pw":pw},  //-------------보낼 데이터의 셋팅
+      success:function(rep_data){
+         if(rep_data == "success"){
+            location.href = "MainPage.do";
+         }else{
+            alert("일치하는 회원 정보가 없습니다.");
+            $("#id").val('').focus();
+            $("#pw").val('');
+         }
+      },
+      error:function(){
+         alert("error");
+      }
+   });
+   }
+ }
   

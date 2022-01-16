@@ -2,7 +2,7 @@ package mul.camp.a.dto;
 
 import java.io.Serializable;
 
-public class MemberDto implements Serializable{	// = 직렬화
+public class MemberDto implements Serializable{	// = 吏곷젹�솕
 	private String id;	
 	private String pw;
 	private String name;
@@ -12,12 +12,13 @@ public class MemberDto implements Serializable{	// = 직렬화
 	private String phone;
 	private String nickName;
 	private String del;
-
+	private int auth;
 	public MemberDto() {	
 	}
 
 	public MemberDto(String id, String pw, String name, String gender, String birth, String email, String phone,
-			String nickName, String del) {
+			String nickName, String del,int auth) {
+		super();
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
@@ -27,6 +28,15 @@ public class MemberDto implements Serializable{	// = 직렬화
 		this.phone = phone;
 		this.nickName = nickName;
 		this.del = del;
+		this.auth = auth;
+	}
+
+	public int getAuth() {
+		return auth;
+	}
+
+	public void setAuth(int auth) {
+		this.auth = auth;
 	}
 
 	public String getId() {
@@ -104,6 +114,9 @@ public class MemberDto implements Serializable{	// = 직렬화
 	@Override
 	public String toString() {
 		return "MemberDto [id=" + id + ", pw=" + pw + ", name=" + name + ", gender=" + gender + ", birth=" + birth
-				+ ", email=" + email + ", phone=" + phone + ", nickName=" + nickName + ", del=" + del + "]";
-	};
+				+ ", email=" + email + ", phone=" + phone + ", nickName=" + nickName + ", del=" + del + ", auth=" + auth
+				+ "]";
+	}
+
+	
 }
