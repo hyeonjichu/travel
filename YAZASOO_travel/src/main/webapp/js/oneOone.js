@@ -11,8 +11,8 @@ function qWrite() {
 			$("#qcontent").focus();
 		} else {
 			if (confirm("글을 등록하시겠습니까?") == true) {
-				alert("등록되었습니다 .");
 				$("#frm").submit();
+				alert("등록되었습니다 .");
 			}
 		}
 

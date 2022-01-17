@@ -110,5 +110,15 @@ public class boardDaoImpl implements boardDao {
 		return session.update(ns1+"qcommentWrite", dto);
 	}
 
+	@Override
+	public int qcommentUpdate(commentDto dto) {
+		return session.update(ns1+"qcommentUpdate", dto);
+	}
+
+	@Override
+	public int qcommentDel(commentDto dto) {
+		return session.update(ns1+"qcommentDel", dto);
+	}
+
 
 }

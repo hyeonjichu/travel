@@ -1,15 +1,13 @@
-<%@page import="java.util.List"%>
 <%@page import="mul.camp.a.dto.MemberDto"%>
-<%@page import="mul.camp.a.dto.oneOoneDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%List<oneOoneDto> olist= (List<oneOoneDto>)request.getAttribute("onelist"); %>
-<% MemberDto mem = (MemberDto)request.getSession().getAttribute("login"); %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%
+List<MemberDto> mlist = (List<MemberDto>)request.getAttribute("mlist");
+%>
 <!DOCTYPE html>
 <html>
 <head>
- 	<meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/abc.css" />
@@ -26,7 +24,7 @@
     <!-- Bootstrap core CSS -->
    <!-- <link href="/webjars/bootstrap/4.5.3/css/bootstrap.css" rel="stylesheet"> -->
     
-    <!-- Bootstrap Icons-->
+     <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     
     <!-- SimpleLightbox plugin CSS-->
@@ -43,45 +41,57 @@
 <jsp:include page="./headerMenu.jsp"></jsp:include>
 </header>
 <br><br><br><br>
-<h1>문의 내역</h1>
-<table border="1px" solid black>
-<thead>
-	<tr>
-	<th>　　</th><th>문의 제목</th><th>문의 날짜</th><th>문의 유형</th><th>답변 현황</th>
-	</tr>
-</thead>
-<%
-	if(olist == null || olist.size()==0){ 
-%>
-<tr>
-	<td colspan="4" style="text-align:center">문의 내용이 없습니다.</td>
-</tr>
-<%
-}
-	else{
-		for(int i=0;i<olist.size();i++){
-			oneOoneDto ood=olist.get(i);
-			int idx = ood.getIdx();
-%>
-<tr>
-	<th>Q : </th> 
-	<td><a href="qdetail.do?idx=<%=ood.getIdx()%>"><%=ood.getQtitle()%></a></td>
-	<c:set var="now" value="<%=ood.getRegdate()%>"/>
-	<fmt:parseDate value="${now }" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss.S"/>
- 	<td><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></td>
-	<td><%=ood.getQtype() %></td>
-	<td><%=ood.getAnswerYn() %></td>
-</tr>
-<%
-			}
-		}
-%>
+<table border="1" style="width:80%">
+   <thead>
+      <tr>
+      <th>번호</th><th>아이디</th><th>이름</th><th>닉네임</th><th>성별</th><th>생년월일</th><th>이메일</th><th>전화번호</th><th>탈퇴여부</th><th>비고</th>
+      </tr>
+   </thead>
+      <%
+         if(mlist == null || mlist.size()==0){    //bbslist를 controller 에서 가져와야함
+      %>
+      <tr>
+         <td colspan="5">작성된 글이 없습니다 !! 글을 제일먼저 작성해보세요!</td>
+      </tr>
+      <%
+         }
+         else{
+            for(int i=0;i < mlist.size();i++)
+            {
+               MemberDto m = mlist.get(i);
+      %>
+      <tr>
+      		<th><%=i+1 %></th>
+      		<td><%=m.getId() %></td>
+      		<td><%=m.getName() %></td>
+      		<td><%=m.getNickName() %></td>
+      		<td><%=m.getGender() %></td>
+      		<td><%=m.getBirth() %></td>
+      		<td><%=m.getEmail() %></td>
+      		<td><%=m.getPhone() %></td>
+      		<td><%=m.getDel() %></td>
+      		<%if(m.getDel().equals("Y") || m.getDel() == "Y"){ %>
+      		<td><button type="button" onclick="memDelN('<%=m.getId() %>')">복구</button></td>
+      		<%}else{ %>
+      		<td><button type="button" onclick="memDelY('<%=m.getId() %>')">탈퇴</button></td>
+      		<%} %>
+      </tr>
+      <%
+            }
+         }
+      %> 
 </table>
-<div style="text-align:center">
-<%if(mem.getAuth() == 0){ %>
-<button type="button" onclick="location.href='oneOone.do?auth=<%=mem.getAuth()%>&id=<%=mem.getId()%>'">질문하기</button>
-<%} %>
-</div>
-<jsp:include page="./footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+function memDelN(id){
+	if(confirm("회원을 복구하시겠습니까?") == true){
+		location.href = "memDelN.do?id="+id;
+	}
+}
+function memDelY(id){
+	if(confirm("회원을 탈퇴시키겠습니까?") == true){
+		location.href = "memDelY.do?id="+id;
+	}
+}
+</script>
 </html>

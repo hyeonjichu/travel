@@ -30,6 +30,7 @@
 		SELECT * 
 		FROM Y_QUESTION
 		WHERE ID=#{id} AND DEL = 'N'
+		ORDER BY REGDATE DESC
 	</select>
 	
 	<select id="qallboard" resultType="mul.camp.a.dto.oneOoneDto">

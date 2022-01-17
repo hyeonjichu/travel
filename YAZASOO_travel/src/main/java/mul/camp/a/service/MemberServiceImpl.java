@@ -1,10 +1,13 @@
 package mul.camp.a.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mul.camp.a.dao.MemberDao;
 import mul.camp.a.dto.MemberDto;
+import mul.camp.a.dto.boardDto;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -38,4 +41,44 @@ public class MemberServiceImpl implements MemberService{
    public int getEmail(String email) {
       return dao.getEmail(email);
    }
+	
+	//회원수정
+	   @Override
+	   public int memberUpdate(MemberDto mem)  {
+	      
+	      return dao.memberUpdate(mem);
+	   }
+	   
+	    //회원 수정
+	   @Override
+	   public MemberDto modify(MemberDto dto) {
+	   
+	      return dao.modify(dto);
+	   }
+	    //회원 탈퇴
+	   @Override
+	   public int memberDelete(MemberDto mem) {
+	      
+	      return dao.memberDelete(mem);
+	   }
+
+	@Override
+	public List<boardDto> mylist(MemberDto dto) {
+		return dao.mylist(dto);
+	}
+
+	@Override
+	public List<MemberDto> memberList() {
+		return dao.memberList();
+	}
+
+	@Override
+	public int memdeln(String id) {
+		return dao.memdeln(id);
+	}
+
+	@Override
+	public int memdely(String id) {
+		return dao.memdely(id);
+	}
 }

@@ -14,18 +14,56 @@
 		WHERE ID=#{id}
 	</select>
 	
-	<select id="login" parameterType="mul.camp.a.dto.MemberDto" 
-		resultType="mul.camp.a.dto.MemberDto">
-		SELECT ID, NAME, EMAIL,AUTH
-		FROM Y_MEMBER
-		WHERE ID=#{id} AND PW=#{pw}
+	<select id="mylist" parameterType="mul.camp.a.dto.MemberDto" resultType="mul.camp.a.dto.boardDto">
+		SELECT *
+		FROM Y_BOARD
+		WHERE ID=#{id} AND DEL = 'N'
+		ORDER BY REGDATE DESC
 	</select>
 	
-	<select id="getEmail" parameterType="String" resultType="Integer">
-		SELECT COUNT(*)
+	<select id="memberlist" resultType="mul.camp.a.dto.MemberDto">
+		SELECT *
 		FROM Y_MEMBER
-		WHERE EMAIL=#{email}
 	</select>
+	
+	<select id="login" parameterType="mul.camp.a.dto.MemberDto" 
+      resultType="mul.camp.a.dto.MemberDto">
+      SELECT ID, NAME, EMAIL,AUTH, PW
+      FROM Y_MEMBER
+      WHERE ID=#{id} AND PW=#{pw} AND DEL = 'N'
+   </select>
+   
+   <select id="getEmail" parameterType="String" resultType="Integer">
+      SELECT COUNT(*)
+      FROM Y_MEMBER
+      WHERE EMAIL=#{email}
+   </select>
+   
+   <!-- 회원 수정 -->
+   <select id="modify" parameterType="mul.camp.a.dto.MemberDto" resultType="mul.camp.a.dto.MemberDto">
+   SELECT *
+   FROM Y_MEMBER
+   WHERE ID=#{id}
+   </select>
+   
+   <update id="memberUpdate" parameterType="mul.camp.a.dto.MemberDto" >
+	   UPDATE Y_MEMBER 
+	   SET PW=#{pw}, NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickName}
+	   WHERE ID=#{id}
+   </update>
+   
+   <!-- 회원 탈퇴 -->
+	<update id="memberDelete" parameterType="String" >
+	   UPDATE Y_MEMBER 
+	   SET DEL = 'Y'
+	   WHERE ID = #{id}
+	</update>
+	
+	<update id="deln" parameterType="String" >
+	   UPDATE Y_MEMBER 
+	   SET DEL = 'N'
+	    WHERE ID = #{id}
+	</update>
 </mapper>
 
 

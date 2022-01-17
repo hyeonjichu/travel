@@ -2,17 +2,17 @@
 <%@page import="mul.camp.a.dto.BbsParam"%>
 <%@page import="mul.camp.a.dto.boardDto"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <%
-   List<boardDto> bbslist=(List<boardDto>)request.getAttribute("bbslist");
-   String spot = (String)request.getAttribute("spot");
-   MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+List<boardDto> bbslist=(List<boardDto>)request.getAttribute("bbslist");
+String spot = (String)request.getAttribute("spot");
+MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-
  	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -57,7 +57,6 @@
    </thead>
       <%
          if(bbslist == null || bbslist.size()==0){    //bbslist를 controller 에서 가져와야함
-            
       %>
       <tr>
          <td colspan="5">작성된 글이 없습니다 !! 글을 제일먼저 작성해보세요!</td>
@@ -68,20 +67,21 @@
             for(int i=0;i < bbslist.size();i++)
             {
                boardDto bbs=bbslist.get(i);
-         
       %>
       <tr>
+      	 <c:set var="now" value="<%=bbs.getRegDate()%>"/>
          <th><%=i+1 %></th>
          <th><a href="detail.do?idx=<%=bbs.getIdx()%>"><%=bbs.getTitle()%></a></th>
          <th><%=bbs.getId() %></th>
-         <th><%=bbs.getRegDate()%></th>
+         <fmt:parseDate value="${now }" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+ 		 <th><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></th>
          <th><%=bbs.getCnt()%></th>
          <th><%=bbs.getSpot()%></th>
       </tr>
       <%
             }
          }
-      %>
+      %> 
 </table>
 <select id="choice">
    <option value="title">제목</option>   
@@ -93,18 +93,11 @@
 <button type="button" onclick="searchBbs()">검색</button>
 <br>
 <hr>
-
 </div>
 <br>
 <div align="center">
-   <a href="write.do">글쓰기</a>
+   <a href="write.do"  style="color:#000000">글쓰기</a>
 </div>
-
 <jsp:include page="./footer.jsp"></jsp:include>
 </body>
 </html>
-
-
-
-
-

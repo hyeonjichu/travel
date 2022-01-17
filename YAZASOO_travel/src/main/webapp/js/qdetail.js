@@ -11,3 +11,15 @@ function qcommentWrite(){
 	    }
 	}
 }
+
+function qDel(idx, id, auth){
+	if(confirm("삭제하시겠습니까?") == true) {
+		location.href="qDel.do?idx="+idx+"&id="+id+"&auth="+auth;
+    }
+}
+
+function qcommentDel(idx, id){
+	if(confirm("삭제하시겠습니까?") == true) {
+		location.href="qcommentDel.do?idx="+idx+"&id="+id;
+    }
+}

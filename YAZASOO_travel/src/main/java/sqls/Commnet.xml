@@ -20,6 +20,12 @@
 		SET ANSWERYN = 'Y', ANSWER = #{text}
 		WHERE IDX = #{idx}
 	</update>
+		
+	<update id="qcommentDel" parameterType="mul.camp.a.dto.commentDto">
+		UPDATE Y_QUESTION
+		SET ANSWERYN = 'N', ANSWER = NULL
+		WHERE IDX = #{idx}
+	</update>
 	
 	<select id="commentlist" parameterType="Integer" resultType="mul.camp.a.dto.commentDto">
 		SELECT *
@@ -27,5 +33,11 @@
 		WHERE BIDX = #{idx} AND DEL = 'N'
 		ORDER BY REGDATE DESC
 	</select>
+	
+	<update id="qcommentUpdate" parameterType="mul.camp.a.dto.commentDto">
+		UPDATE Y_QUESTION
+		SET ANSWER = #{text}
+		WHERE IDX = #{idx}
+	</update>
 	
 </mapper>

@@ -5,7 +5,7 @@
 MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,12 +33,23 @@ MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
     
     <link rel="shortcut icon" type="image/x-icon" href="image/YAZASOO.png">
 	<title>YAZASOO</title>
+	
+	<!-- include libraries(jQuery, bootstrap) -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	
 </head>
 
 <body>
 <header id="main-header">
 <jsp:include page="./headerMenu.jsp"></jsp:include>
 </header>
+<br><br><br><br><br>
 <div align="center">
 <h1 align="center">write.jsp</h1>
 	<form action="writeAf.do" method="post" id="frm">
@@ -46,8 +57,8 @@ MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" name="id" size="70px" value="<%=mem.getId() %>" readonly>
-					<!-- <input type="text" name="id" size="70px" value="" readonly> -->
+					<input type="hidden" name="id" size="70px" value="<%=mem.getId() %>" readonly>
+					<%=mem.getId() %>
 				</td>
 			</tr>
 			<tr>
@@ -73,7 +84,8 @@ MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
 			<tr>
 				<th>내용</th>
 				<td>
-					<textarea rows="20" cols="80" id="content" name="content"></textarea>
+					<!-- <textarea rows="20" cols="80" id="content" name="content"></textarea> -->
+					<textarea id="summernote" name="content"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -87,5 +99,10 @@ MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
 </div>
 <jsp:include page="./footer.jsp"></jsp:include>
 </body>
-
+<script>
+$('#summernote').summernote({
+    tabsize: 2,
+    height: 400
+  });
+</script>
 </html>

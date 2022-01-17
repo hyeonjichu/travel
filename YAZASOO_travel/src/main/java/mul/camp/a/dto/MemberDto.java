@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class MemberDto implements Serializable{	// = 吏곷젹�솕
 	private String id;	
 	private String pw;
+	private String pwnew;
 	private String name;
 	private String gender;
 	private String birth;
@@ -13,14 +14,16 @@ public class MemberDto implements Serializable{	// = 吏곷젹�솕
 	private String nickName;
 	private String del;
 	private int auth;
+	
 	public MemberDto() {	
 	}
 
-	public MemberDto(String id, String pw, String name, String gender, String birth, String email, String phone,
+	public MemberDto(String id, String pw, String pwnew, String name, String gender, String birth, String email, String phone,
 			String nickName, String del,int auth) {
 		super();
 		this.id = id;
 		this.pw = pw;
+		this.pwnew = pwnew;
 		this.name = name;
 		this.gender = gender;
 		this.birth = birth;
@@ -29,6 +32,14 @@ public class MemberDto implements Serializable{	// = 吏곷젹�솕
 		this.nickName = nickName;
 		this.del = del;
 		this.auth = auth;
+	}
+
+	public String getPwnew() {
+		return pwnew;
+	}
+
+	public void setPwnew(String pwnew) {
+		this.pwnew = pwnew;
 	}
 
 	public int getAuth() {
@@ -113,10 +124,9 @@ public class MemberDto implements Serializable{	// = 吏곷젹�솕
 
 	@Override
 	public String toString() {
-		return "MemberDto [id=" + id + ", pw=" + pw + ", name=" + name + ", gender=" + gender + ", birth=" + birth
-				+ ", email=" + email + ", phone=" + phone + ", nickName=" + nickName + ", del=" + del + ", auth=" + auth
-				+ "]";
+		return "MemberDto [id=" + id + ", pw=" + pw + ", pwnew=" + pwnew + ", name=" + name + ", gender=" + gender
+				+ ", birth=" + birth + ", email=" + email + ", phone=" + phone + ", nickName=" + nickName + ", del="
+				+ del + ", auth=" + auth + "]";
 	}
-
 	
 }

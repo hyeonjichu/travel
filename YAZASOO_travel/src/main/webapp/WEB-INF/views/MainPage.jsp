@@ -65,8 +65,11 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
                 </li>    
                  <li><a href="oneOone.do?auth=<%=mem.getAuth()%>&id=<%=mem.getId()%>">1:1문의</a>
                 </li> 
-                <li><a href="mypage.do">MyPage</a></li>
-                <!-- <li><a href="Join.html">Sing up</a></li> -->
+				<%if(mem.getAuth() == 1){ %>
+	                <li><a href="memberList.do">회원관리</a></li>
+				<%}else{ %>                
+	                <li><a href="mypage.do?id=<%=mem.getId()%>">MyPage</a></li>
+				<%} %>                
                 <li><a href="logout.do">Log-out</a></li>
             </ul>
             <!--  <div class="header-search">

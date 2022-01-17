@@ -109,6 +109,13 @@ public class boardServiceImple implements boardService {
 		return dao.qcommentWrite(dto);
 	}
 
+	@Override
+	public int qcommentUpdate(commentDto dto) {
+		return dao.qcommentUpdate(dto);
+	}
 
-
+	@Override
+	public int qcommentDel(commentDto dto) {
+		return dao.qcommentDel(dto);
+	}
 }

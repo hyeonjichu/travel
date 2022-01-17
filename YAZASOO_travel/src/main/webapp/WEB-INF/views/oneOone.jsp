@@ -42,16 +42,12 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 <header id="main-header">
 <jsp:include page="./headerMenu.jsp"></jsp:include>
 </header>
-
 <body>
 	<form action="oneOoneAf.do" method="post" id="frm">
-	
 		<table>
-		
 			<tr>
 				<th>작성자 </th>
-				<td><input type="text" name="id" value="<%=mem.getId()%>"
-					readonly></td>
+				<td><input value="<%=mem.getId()%>" type="hidden" name="id"><%=mem.getId()%></td>
 			<tr>
 				<th>분류 </th>
 				<td><select name="qtype" id="qtype">

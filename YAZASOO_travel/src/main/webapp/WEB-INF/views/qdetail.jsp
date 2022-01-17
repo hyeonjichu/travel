@@ -1,11 +1,12 @@
 <%@page import="mul.camp.a.dto.MemberDto"%>
 <%@page import="mul.camp.a.dto.oneOoneDto"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%oneOoneDto oto= (oneOoneDto)request.getAttribute("oto");
 MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/abc.css" />
     <link rel="stylesheet" type="text/css" href="css/qwe.css" />
-    <script type="text/javascript" src="js/qdetail.js"></script>
+    <script type="text/javascript" src="js/qdetail.js?ver=123"></script>
 	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     
@@ -54,7 +55,9 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 	</tr>
 	<tr>
 		<th>작성일</th>
-		<td><%=oto.getRegdate()%></td>
+		<c:set var="now" value="<%=oto.getRegdate()%>"/>
+		<fmt:parseDate value="${now }" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+ 		<td><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></td>
 	</tr>
 	<tr>
 		<th>문의 유형</th>
@@ -65,16 +68,33 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 		<td align="center"><textarea rows="15" cols="100" readonly><%=oto.getQcontent() %></textarea></td>
 	</tr>
 </table>
+<input type="hidden" value="<%=mem.getId() %>" id="id">
+<input type="hidden" value="<%=oto.getIdx() %>" id="idx">
 <%if(oto.getId().equals(mem.getId())){ %>
 <div style="text-align:center">
-<button type="button" onclick="qDel(<%=oto.getIdx() %>)">삭제</button>
+<button type="button" onclick="qDel(<%=oto.getIdx() %>, '<%=mem.getId() %>', <%=mem.getAuth() %>)">삭제</button>
 </div>
 <%} %>
+
 <div style="text-align:center">
 <%if(oto.getAnswerYn().equals("Y")){ %>
 답변 내용<br><br>
-<textarea type="text" rows="5" cols="100" readonly><%=oto.getAnswer()%></textarea>	
-
+<table border="1" style="width:80%">
+   <thead>
+      <tr>
+      <th>작성자</th><th>내용</th>
+      </tr>
+   </thead>
+      <tr>
+         <th>관리자</th>
+         <td><textarea type="text" rows="5" cols="100" readonly id="commentText"><%=oto.getAnswer()%></textarea></td>
+      </tr>
+</table>
+	<%if(mem.getAuth() == 1){ %>
+		<button type="button" id="updateBtn1" onclick="qcommnetUpdate()">수정</button>
+		<button type="button" id="updateBtn2" onclick="qcommnetUpdateAf(<%=oto.getIdx()%>, '<%=mem.getId()%>')" style="display:none">수정</button>
+		<button type="button" id="delBtn" onclick="qcommentDel(<%=oto.getIdx()%>, '<%=mem.getId()%>')">삭제</button>
+	<%} %>
 <%} %>
 </div>
 <div style="text-align:center">
@@ -82,16 +102,21 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 <br><br><hr><br><br>
 	답변하기
 	<textarea type="text" id="text" name="text" rows="5" cols="100"></textarea>
-	<input type="hidden" value="<%=mem.getId() %>" id="id">
-	<input type="hidden" value="<%=oto.getIdx() %>" id="idx">
 	<button type="button" onclick="qcommentWrite()">등록</button>
 <%} %>
 </div>
 <script type="text/javascript">
-function qDel(idx){
-	if (confirm("삭제하시겠습니까?") == true) {
-		location.href = "qDel.do?idx="+idx;
-    }
+function qcommnetUpdate(){
+	if(confirm("수정하시겠습니까?") == true) {
+		$("#commentText").attr("readonly", false);
+		document.getElementById("updateBtn1").style.display = "none"; 
+		document.getElementById("updateBtn2").style.display = ""; 
+		document.getElementById("delBtn").style.display = "none"; 
+	}
+}
+function qcommnetUpdateAf(idx, id){
+	let ctext= document.getElementById("commentText").value;
+	location.href="qcommentUpdate.do?idx="+idx+"&text="+ctext+"&id="+id;
 }
 </script>
 <jsp:include page="./footer.jsp"></jsp:include>

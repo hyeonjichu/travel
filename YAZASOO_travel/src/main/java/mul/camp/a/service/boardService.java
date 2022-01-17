@@ -41,4 +41,8 @@ public interface boardService {
    int readcnt(int idx);//조회수
 	
 	int qcommentWrite(commentDto dto);
+	
+	int qcommentUpdate(commentDto dto);
+	
+	int qcommentDel(commentDto dto);
 }

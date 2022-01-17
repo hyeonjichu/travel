@@ -1,7 +1,7 @@
 <%@page import="mul.camp.a.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
- <%
-   MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
+<%
+MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 %>
 <h1></h1>
 <div class="header-tag">
@@ -32,7 +32,11 @@
         </li>    
         <li><a href="oneOone.do?auth=<%=mem.getAuth()%>&id=<%=mem.getId()%>">1:1문의</a>
         </li>
-        <li><a href="mypage.do">MyPage</a></li>
+        <%if(mem.getAuth() == 1){ %>
+               <li><a href="memberList.do">회원관리</a></li>
+		<%}else{ %>                
+               <li><a href="mypage.do?id=<%=mem.getId()%>">MyPage</a></li>
+		<%} %>
         <li><a href="logout.do">Log-out</a></li>
     </ul>
 </nav>

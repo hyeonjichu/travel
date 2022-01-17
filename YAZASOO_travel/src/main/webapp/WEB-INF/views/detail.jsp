@@ -4,6 +4,8 @@
 <%@page import="mul.camp.a.dto.boardDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 boardDto dto = (boardDto)request.getAttribute("detail");
 List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
@@ -39,6 +41,16 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
     
     <link rel="shortcut icon" type="image/x-icon" href="image/YAZASOO.png">
     <title>YAZASOO</title>
+    
+    <!-- include libraries(jQuery, bootstrap) -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	
 </head>
 <body>
 <header id="main-header">
@@ -62,7 +74,9 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
 		</tr>	
 		<tr>
 			<th>작성일</th>
-			<td><%=dto.getRegDate() %></td>
+			<c:set var="now" value="<%=dto.getRegDate()%>"/>
+			<fmt:parseDate value="${now }" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+ 		    <td><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></td>
 		</tr>	
 		<tr>
 			<th>조회수</th>
@@ -70,7 +84,7 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
 		</tr>	
 		<tr>
 			<th>내용</th>
-			<td align="center"><textarea rows="15" cols="100" readonly><%=dto.getContent() %></textarea></td>
+			<td align="center"><textarea rows="15" cols="100" id="summernote" readonly><%=dto.getContent() %></textarea></td>
 		</tr>	
 	</table>
 	
@@ -98,7 +112,7 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
 <table border="1" style="width:80%">
    <thead>
       <tr>
-      <th>글 번호</th> <th>작성자</th> <th>날짜</th> <th>내용</th><th>비고</th>
+      <th>글 번호</th> <th>날짜</th><th>작성자</th><th>내용</th><th>비고</th>
       </tr>
    </thead>
       <%
@@ -118,14 +132,16 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
       %>
       <tr>
          <th><%=i+1 %></th>
-         <th><%=comment.getId() %></th>
-         <th><%=comment.getRegDate()%></th>
-         <th><%=comment.getText()%></th>
-         <th>
+         <td><%=comment.getId() %></td>
+         <td><%=comment.getText()%></td>
+         <c:set var="now" value="<%=comment.getRegDate()%>"/>
+         <fmt:parseDate value="${now }" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+ 		 <td><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></td>
+         <td>
          <%if(mem.getId().equals(comment.getId())){ %>       
 			<button type="button" onclick="commentDel(<%=comment.getIdx() %>, <%=comment.getBidx() %>)">삭제</button>   
 		<%} %>      
-         </th>
+         </td>
       </tr>
       <%
             }
@@ -136,4 +152,15 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
 </div>
 <jsp:include page="./footer.jsp"></jsp:include>
 </body>
+<script>
+$('#summernote').summernote({
+    tabsize: 2,
+    height: 400,
+    toolbar:false,
+    disableDragAndDrop : true,
+	disable:true,
+	readonly:true
+  });
+$('#summernote').summernote('disable');
+</script>
 </html>

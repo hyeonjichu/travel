@@ -3,6 +3,10 @@ package mul.camp.a.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +34,12 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	boardService service;
 	
 	@RequestMapping(value = "MainPage.do", method = RequestMethod.GET)
-	public String bbslist(Model model, BbsParam param) {
+	public String bbslist(Model model, BbsParam param, HttpSession session) {
 		logger.info("BbsController MainPage() " + new Date());
+		
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		List<boardDto> list = service.bbslist(param);
 		model.addAttribute("MainPage", list);
@@ -41,8 +49,12 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	//1:1 내 문의글 확인
 	@RequestMapping(value="myq.do",method=RequestMethod.GET)
-	public String myq(Model model,String id) {
+	public String myq(Model model,String id, HttpSession session) {
 		logger.info("MainController myq() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		MemberDto dto = service.chk(id);
 		System.out.println("auth:"+ dto.getAuth() + dto.toString());
@@ -58,9 +70,14 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 		return "myq";
 	}
 	
+	
 	@RequestMapping(value = "board.do", method = RequestMethod.GET)
-	public String board(Model model, BbsParam param) {
+	public String board(Model model, BbsParam param, HttpSession session) {
 		logger.info("MainController board() " + new Date());
+		
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}	
 		
 		if(param.getSpot() != null && !param.getSpot().equals("")) {
 			if(param.getSpot().equals("seoul")) {
@@ -95,14 +112,18 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	}
 	
 	@RequestMapping(value = "detail.do", method = RequestMethod.GET)
-	public String detail(Model model, int idx) {
+	public String detail(Model model, int idx, HttpSession session) {
 		logger.info("MainController detail() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		boardDto dto = service.detail(idx);
 		model.addAttribute("detail", dto);
 		
 		int chk = service.readcnt(idx);//조회수
-	     System.out.println(chk);
+	    System.out.println(chk);
 	     
 		List<commentDto> list = service.commentlist(idx);
 		model.addAttribute("commentlist", list);
@@ -111,27 +132,40 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	}
 	
 	//1:1 문의글 불러오기
-		@RequestMapping(value="qdetail.do",method=RequestMethod.GET)
-		public String qdetail(Model model,int idx) {
-			logger.info("MainController qdetail() " + new Date());
-			oneOoneDto oto = service.olist(idx);
-			model.addAttribute("oto",oto);
-					
-			return "qdetail";
+	@RequestMapping(value="qdetail.do",method=RequestMethod.GET)
+	public String qdetail(Model model,int idx, HttpSession session) {
+		logger.info("MainController qdetail() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
 		}
 		
+		oneOoneDto oto = service.olist(idx);
+		model.addAttribute("oto",oto);
+				
+		return "qdetail";
+	}
+	
 
 	@RequestMapping(value = "write.do", method = RequestMethod.GET)
-	public String write() {
+	public String write(HttpSession session) {
 		logger.info("MainController write() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		return "write";
 	}
 	
 	@RequestMapping(value = "writeAf.do", method = RequestMethod.POST)
-	public String writeAf(Model model, boardDto dto) {
+	public String writeAf(Model model, boardDto dto, HttpSession session) {
 		logger.info("MainController writeAf() " + new Date());
 		System.out.println(dto.toString());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		int chk = service.boardInsert(dto);
 		System.out.println("chk====="+chk);
@@ -144,8 +178,12 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	}
 	
 	@RequestMapping(value="boardUpdate.do", method = RequestMethod.GET)
-	public String boardUpdate(Model model, int idx) {
+	public String boardUpdate(Model model, int idx, HttpSession session) {
 		logger.info("MainController boardUpdate() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		boardDto dto = service.detail(idx);
 		model.addAttribute("detail", dto);
@@ -154,8 +192,12 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	}
 	
 	@RequestMapping(value="boardDel.do", method = RequestMethod.GET)
-	public String boardDel(int idx) {
+	public String boardDel(int idx, HttpSession session) {
 		logger.info("MainController boardDel() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		int chk = service.del(idx);
 		System.out.println(chk);
@@ -166,21 +208,31 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	}
 	
 	@RequestMapping(value="qDel.do", method = RequestMethod.GET)
-	public String qDel(int idx) {
-		logger.info("MainController boardDel() " + new Date());
+	public String qDel(int idx, String id, int auth, HttpSession session) {
+		logger.info("MainController qDel() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		int chk = service.qdel(idx);
+		
 		System.out.println(chk);
 		if(chk == 1) {
-			return "redirect:/oneOone.do";
+			return "redirect:/myq.do?id="+id;
 		}
-		return "redirect:/oneOone.do";
+		return "redirect:/myq.do?id="+id;
 	}
 	
 	@RequestMapping(value="boardUpdateAf.do", method = RequestMethod.POST)
-	public String boardUpdateAf(boardDto dto) {
+	public String boardUpdateAf(boardDto dto, HttpSession session) {
 		logger.info("MainController boardUpdateAf() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		System.out.println(dto.toString());
+		
 		int chk = service.update(dto);
 		if(chk == 1) {
 			return "redirect:/board.do";
@@ -191,8 +243,13 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	}
 	//1:1 문의
 	@RequestMapping(value="oneOone.do",method=RequestMethod.GET)
-	public String oneOone(Model model,int auth,String id) {
+	public String oneOone(Model model,int auth,String id, HttpSession session) {
 		logger.info("MainController oneOone() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
+		
 		if(auth == 1)
 		{
 			return "redirect:/myq.do?id="+id;
@@ -201,34 +258,32 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	}
 	//1:1문의 작성
 	@RequestMapping(value = "oneOoneAf.do", method = RequestMethod.POST)
-	public String oneOoneAf(oneOoneDto dto) {
+	public String oneOoneAf(oneOoneDto dto, HttpSession session) {
 		logger.info("MainController oneOoneAf() " + new Date());
-		System.out.println("BoardController oneOoneAf()");
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		int chk=service.oneOoneInsert(dto);
 		
-		System.out.println("chk====="+chk);
-		
 		if(chk == 0) {
-			System.out.println("----------------------oneOone");
 			return "oneOone";
 		}else {
-			System.out.println("----------------------complet.do");
 			return "redirect:/myq.do?id="+dto.getId();
 			
 		}	
 	}
-	@RequestMapping(value = "complet.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String complet() {
-		
-		return "complet";
-	}
 	
 	//댓글쓰기
 	@RequestMapping(value="commentWrite.do", method = RequestMethod.GET)
-	public String commentWrite(commentDto dto) {
+	public String commentWrite(commentDto dto, HttpSession session) {
 		logger.info("MainController commentWrite() " + new Date());
-		System.out.println(dto.toString());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
+		
 		
 		int chk = service.commentWrite(dto);
 		System.out.println(chk);
@@ -240,8 +295,13 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	}
 	//댓글 지우기
 	@RequestMapping(value="commentDel.do", method=RequestMethod.GET)
-	public String commentDel(commentDto dto) {
+	public String commentDel(commentDto dto, HttpSession session) {
 		logger.info("MainController commentDel() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
+		
 		int chk = service.commentDel(dto);
 		if(chk == 1) {
 			return "redirect:/detail.do?idx="+dto.getBidx();
@@ -253,17 +313,52 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	//댓글쓰기
 	@RequestMapping(value="qcommentWrite.do", method = RequestMethod.GET)
-	public String qcommentWrite(commentDto dto) {
+	public String qcommentWrite(commentDto dto, HttpSession session) {
 		logger.info("MainController qcommentWrite() " + new Date());
-		System.out.println(dto.toString());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
 		int chk = service.qcommentWrite(dto);
 		if(chk == 1) {
-			return "redirect:/myq.do?id="+dto.getId();
+			return "redirect:/qdetail.do?idx="+dto.getIdx();
 		}else {
 			return "redirect:/qdetail.do?idx="+dto.getIdx();
 		}
+	}
+	
+	@RequestMapping(value="qcommentUpdate.do", method=RequestMethod.GET)
+	public String qcommentUpdate(commentDto dto, HttpSession session) {
+		logger.info("MainController qcommentUpdate() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
 		
+		int chk = service.qcommentUpdate(dto);
+		
+		if(chk == 1) {
+			return "redirect:/qdetail.do?idx="+dto.getIdx();
+		}else {
+			return "redirect:/qdetail.do?idx="+dto.getIdx();
+		}
+	}
+	
+	@RequestMapping(value="qcommentDel.do", method=RequestMethod.GET)
+	public String qcommentDel(commentDto dto, HttpSession session) {
+		logger.info("MainController qcommentDel() " + new Date());
+
+		if(session.getAttribute("login") == null) {
+			return "redirect:/login.do";
+		}
+		
+		int chk = service.qcommentDel(dto);
+		if(chk == 1) {
+			return "redirect:/qdetail.do?idx="+dto.getIdx();
+		}else {
+			return "redirect:/board.do";
+		}
 	}
 	
 }

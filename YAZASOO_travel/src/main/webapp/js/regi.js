@@ -1,12 +1,15 @@
-$(document).ready(function () {
-   
-   $("#btn").click(function () {
+let click; //버튼클릭시 변수지정
+let account; //계정 부분 공란확인
+
+
+   function btnClick(){
+   //$("#btnID").click(function () {
+	alert('click');
       $.ajax({
          url:"idcheck.do",
          type:"post",
          data:{ id:$("#id").val() },
          success:function( msg ){
-         
             if(msg == "YES"){
                $("#idcheck").css("color", "#0000ff");
                $("#idcheck").html("사용할 수 있는 아이디입니다");
@@ -21,7 +24,9 @@ $(document).ready(function () {
             alert('error');
          }
       });
-   });   
+   //});  
+}
+   
    $("#btnEmail").click(function () {
       $.ajax({
          url:"emailcheck.do",
@@ -44,7 +49,7 @@ $(document).ready(function () {
          }
       });
    });   
-});
+
 
 $(function(){
    //비밀번호 확인
@@ -59,7 +64,7 @@ $(function(){
    })        
 });
 
-function account() {
+function account1() {
 //   alert('account');
 
    if($("#id").val() == ''){

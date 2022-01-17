@@ -27,17 +27,22 @@ public interface boardDao {
 	
 	int  oneOoneInsert(oneOoneDto dto); //1:1 문의 게시판
 	   
-	   List<oneOoneDto> onelist(String id); //1:1 글 불러오기
-	   
-	   oneOoneDto olist(int idx);// 문의 디테일
-	   
-	   int qdel(int idx);//문의내용 ㅅ ㅏㄱ제
-	   
-	   List<oneOoneDto> qalllist(); //문의 내용 관리자용
+   List<oneOoneDto> onelist(String id); //1:1 글 불러오기
+   
+   oneOoneDto olist(int idx);// 문의 디테일
+   
+   int qdel(int idx);//문의내용 ㅅ ㅏㄱ제
+   
+   List<oneOoneDto> qalllist(); //문의 내용 관리자용
 
-	   MemberDto chk(String id);//아이디값 불러오기 컨트롤러에
-	   
-	   int readcnt(int idx);//조회수
-	   
-	   int qcommentWrite(commentDto dto);
+   MemberDto chk(String id);//아이디값 불러오기 컨트롤러에
+   
+   int readcnt(int idx);//조회수
+   
+   int qcommentWrite(commentDto dto);
+   
+   int qcommentUpdate(commentDto dto);
+   
+   int qcommentDel(commentDto dto);
+   
 }

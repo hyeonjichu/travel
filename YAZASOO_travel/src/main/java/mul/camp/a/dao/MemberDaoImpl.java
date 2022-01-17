@@ -1,10 +1,13 @@
 package mul.camp.a.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import mul.camp.a.dto.MemberDto;
+import mul.camp.a.dto.boardDto;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -41,6 +44,45 @@ public class MemberDaoImpl implements MemberDao {
       int count = session.selectOne(ns + "getEmail", email);
       return count;
    }
+	
+	//회원 정보 수정
+	   @Override
+	   public int memberUpdate(MemberDto mem){
+	      
+	      return session.update(ns + "memberUpdate", mem); 
+	   }
+	   @Override
+	   public MemberDto modify(MemberDto dto) {
+	      
+	      return session.selectOne(ns+"modify", dto);
+	   }
+
+	   //회원 삭제
+	   @Override
+	   public int memberDelete(MemberDto mem) {
+	      
+	      return session.update(ns+ "memberDelete", mem);
+	   }
+
+	@Override
+	public List<boardDto> mylist(MemberDto dto) {
+		return session.selectList(ns+"mylist", dto);
+	}
+
+	@Override
+	public List<MemberDto> memberList() {
+		return session.selectList(ns+"memberlist");
+	}
+
+	@Override
+	public int memdeln(String id) {
+		return session.update(ns+"deln", id);
+	}
+
+	@Override
+	public int memdely(String id) {
+		return session.update(ns+"memberDelete", id);
+	}
 	
 }
 
