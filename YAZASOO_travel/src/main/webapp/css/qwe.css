@@ -3,9 +3,9 @@
 /* 링크 색상 (중요하지 않음) */
 a {
   text-decoration: none;
-  color: rgb(255, 255, 255);
+  color: #000000;
 }
-a:hover {color: white;}
+a:hover {color: #dbdbdb;}
 
 /* 테이블 색상 (중요하지 않음) */
 table {
@@ -40,10 +40,10 @@ tr:nth-of-type(odd) {
 .date {width: 15%;}
 
 /* 컬럼의 정렬 */
-tr td:nth-child(1){text-align:left;}
-tr td:nth-child(2){text-align:left;}
-tr td:nth-child(3){text-align:left;}
-tr td:nth-child(4){text-align:left;}
+tr td:nth-child(1){text-align:center;}
+tr td:nth-child(2){text-align:center;}
+tr td:nth-child(3){text-align:center;}
+tr td:nth-child(4){text-align:center;}
 tr td:nth-child(5){text-align:center;}
 
 /* 페이징 버튼 */

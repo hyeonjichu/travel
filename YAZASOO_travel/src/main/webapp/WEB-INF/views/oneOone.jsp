@@ -43,6 +43,7 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 <jsp:include page="./headerMenu.jsp"></jsp:include>
 </header>
 <body>
+<br><br><br>
 	<form action="oneOoneAf.do" method="post" id="frm">
 		<table>
 			<tr>
@@ -68,18 +69,12 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 				<td><textarea rows="10" cols="100" name="qcontent"
 						id="qcontent"></textarea></td>
 			</tr>
-			<tr>
-				<td align="right" colspan="3">
-					<button type="button" onclick="qWrite()">작성</button>
-					<br><br>
-					<hr>
-					<br>
-					<%-- <button type="button" onclick="go(<%=mem.getId()%>)">내 문의내역 보s기</button><br><br>정확하고 빠르게 답변드리겠습니다. --%>
-					<button type="button" onclick="location.href='myq.do?id=<%=mem.getId()%>'"/>내 문의내역 보기</button><br><br>정확하고 빠르게 답변드리겠습니다
-				</td>
-			</tr>
-		</table>
+			</table>
 	</form>
+	<div class="btn" style="text-align:right; margin-right:10%">
+	<span style="margin-right:30%"><button type="button" onclick="qWrite()">작성</button></span>
+	<button type="button" onclick="location.href='myq.do?id=<%=mem.getId()%>'"/>내 문의내역 보기</button></div>
+	<br>
 <jsp:include page="./footer.jsp"></jsp:include>
 </body>
 

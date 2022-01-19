@@ -17,7 +17,7 @@ public class MemberDto implements Serializable{	// = 吏곷젹�솕
 	
 	public MemberDto() {	
 	}
-
+	
 	public MemberDto(String id, String pw, String pwnew, String name, String gender, String birth, String email, String phone,
 			String nickName, String del,int auth) {
 		super();

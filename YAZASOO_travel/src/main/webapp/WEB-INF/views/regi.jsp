@@ -38,10 +38,10 @@
 <body>
 	<div class="main">
 		<div class="register">
-			<h1>YAZASOO</h1>
+		<div class="title"><a href="login.do" style="text-decoration:none; color:black">YAZASOO</a></div>
 			<form id="frm" action="regiAf.do" method="post">
 				<label>아이디</label><br> <input type="text" class="put" name="id"
-					id="id" placeholder="아이디를 입력해주세요">&nbsp;<input type="button" onclick="btnClick()" value="확인"><br>
+					id="id" placeholder="아이디를 입력해주세요">&nbsp;<input type="button" id="btn" onclick="btnClick()" value="확인"><br>
 				<p id="idcheck" style="font-size: 8px"></p>
 				<br> <label>비밀번호</label> <br> <input type="password"
 					class="put" name="pw" id="pw" placeholder="비밀번호를 입력해주세요"> <br>
@@ -50,10 +50,10 @@
 				<br>
 				<br> <label>이름</label> <br> <input type="text" class="put"
 					name="name" id="name" placeholder="이름을 입력해주세요"> <br>
-				<br> <label>성별</label> <br>
+				<br> <label>성별</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="radio" name="gender" id="male" value="남">
+				<input type="radio" name="gender" id="male" value="남" checked>
 				&nbsp; <span id="male">남</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
@@ -62,8 +62,8 @@
 				<br> <label>생년월일</label> <br> <input type="date"
 					class="put" name="birth" id="birth"> <br>
 				<br> <label>이메일</label> <br> <input type="email"
-					class="put" name="email" id="email" placeholder="이메일을 입력해주세요">&nbsp;<input
-					type="button" id="btnEmail" value="확인"><br>
+					class="put" name="email" id="email" placeholder="이메일을 입력해주세요">&nbsp;
+					<input type="button" id="btnEmail" onclick="ebtnClick()" value="확인"><br>
 				<p id="emailcheck" style="font-size: 8px"></p>
 				<br>
 				<br> <label>전화번호</label> <br> <input type="text"

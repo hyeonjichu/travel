@@ -1,4 +1,5 @@
 <%@page import="mul.camp.a.dto.MemberDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -10,8 +11,8 @@ MemberDto member = (MemberDto) request.getAttribute("member");
    <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="css/qwe.css" />
-    <script type="text/javascript" src="js/write.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/memberDelete.css" />
+  <script type="text/javascript" src="js/memberDelete.js"></script>
    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     
@@ -27,27 +28,29 @@ MemberDto member = (MemberDto) request.getAttribute("member");
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
     
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/qwe.css" rel="stylesheet" />
+  <link href="css/abc.css" rel="stylesheet" />
     
     
     <link rel="shortcut icon" type="image/x-icon" href="image/YAZASOO.png">
       
       <title>회원탈퇴</title>
    </head>
-   
+   <jsp:include page="./headerMenu.jsp"></jsp:include>
    <body>
+   <section class="login-form">
+     <br><br><br><br>
          <section id="container">
          <form action="memberDeleteAf.do" method="post">
-            <div class="form-group has-feedback">
-               <label class="control-label" for="userId">아이디</label>
-               <input type="text" name="id" size="70px" value="<%= mem.getId() %>" readonly="readonly"/>
+            <div class="register">
+               <label class="control-label" for="userId">아이디</label><br>
+               <input type="text" class="put" name="id" size="70px" value="<%= mem.getId() %>" readonly="readonly"/>
             </div>
-            <div class="form-group has-feedback">
-               <label class="control-label" for="userPass">비밀번호</label>
-               <input class="form-control" type="password" id="pw" name="pw">
+            <div class="register">
+               <label class="control-label" for="userPass">비밀번호</label><br>
+               <input class="put"  type="password" id="pw" name="pw">
                <input type="hidden" value="<%=mem.getPw()%>" id="pw2">
             </div>
-            <div class="form-group has-feedback">
+            <div class="register">
                <button type="button" onclick="memberDelete('<%=mem.getId()%>')">회원 탈퇴</button>
             </div>
          </form>

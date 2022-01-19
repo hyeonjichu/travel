@@ -133,6 +133,24 @@ public class MemberController {
       
       return "Modify";
    }
+   
+   //회원 권한 변경
+   @RequestMapping(value="authChange.do", method = {RequestMethod.GET, RequestMethod.POST})
+   public String authChange(HttpSession session, MemberDto dto, String user){
+	   logger.info("MemberController authChange() " + new Date());
+	   if(session.getAttribute("login") == null) {
+		   return "redirect:/login.do";
+	   }
+	   
+	   System.out.println(dto.toString());
+	   int chk = service.authChange(dto);
+	   if(chk == 1) {
+		   return "redirect:/memberList.do?id="+user;
+	   }else {
+		   return "redirect:/memberList.do?id="+user;
+	   }
+	   
+   }
 
    @RequestMapping(value="memberUpdate.do", method = RequestMethod.POST)
    public String registerUpdate(Model model, MemberDto mem, HttpSession session) throws Exception{
@@ -140,7 +158,8 @@ public class MemberController {
 		if(session.getAttribute("login") == null) {
 			return "redirect:/login.do";
 		}
-      if(mem.getPwnew() != null) {
+		
+      if(!mem.getPwnew().equals("")) {
     	  mem.setPw(mem.getPwnew());
       }
       
@@ -181,44 +200,45 @@ public class MemberController {
    }
    
    @RequestMapping(value="memberList.do", method=RequestMethod.GET)
-   public String memberList(HttpSession session, Model model) {
+   public String memberList(HttpSession session, Model model, String id) {
 	   logger.info("MemberController memberList() " + new Date());
 		if(session.getAttribute("login") == null) {
 			return "redirect:/login.do";
 		}
 		
-		List<MemberDto> mlist = service.memberList();
+		List<MemberDto> mlist = service.memberList(id);
 		model.addAttribute("mlist", mlist);
 	   
 	   return "memberList";
    }
    
    @RequestMapping(value="memDelN.do", method = {RequestMethod.GET, RequestMethod.POST})
-   public String memDelN(String id, HttpSession session){
+   public String memDelN(String id, HttpSession session, String user){
 	   logger.info("MemberController memDelN() " + new Date());
 		if(session.getAttribute("login") == null) {
 			return "redirect:/login.do";
 		}
+		System.out.println("id======"+id);
 	   int chk = service.memdeln(id);
 	   if(chk == 1) {
-		   return "redirect:/memberList.do";
+		   return "redirect:/memberList.do?id="+user;
 	   }else {
-		   return "redirect:/memberList.do";
+		   return "redirect:/memberList.do?id="+user;
 	   }
 	   
    }
    
    @RequestMapping(value="memDelY.do", method = {RequestMethod.GET, RequestMethod.POST})
-   public String memDelY(String id, HttpSession session){
+   public String memDelY(String id, HttpSession session, String user){
 	   logger.info("MemberController memDelN() " + new Date());
 		if(session.getAttribute("login") == null) {
 			return "redirect:/login.do";
 		}
 	   int chk = service.memdely(id);
 	   if(chk == 1) {
-		   return "redirect:/memberList.do";
+		   return "redirect:/memberList.do?id="+user;
 	   }else {
-		   return "redirect:/memberList.do";
+		   return "redirect:/memberList.do?id="+user;
 	   }
    }
 }

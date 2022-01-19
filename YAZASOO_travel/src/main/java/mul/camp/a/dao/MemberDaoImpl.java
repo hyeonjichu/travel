@@ -70,8 +70,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<MemberDto> memberList() {
-		return session.selectList(ns+"memberlist");
+	public List<MemberDto> memberList(String id) {
+		return session.selectList(ns+"memberlist", id);
 	}
 
 	@Override
@@ -82,6 +82,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int memdely(String id) {
 		return session.update(ns+"memberDelete", id);
+	}
+
+	@Override
+	public int authChange(MemberDto dto) {
+		return session.update(ns+"authChange", dto);
 	}
 	
 }

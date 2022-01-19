@@ -4,6 +4,7 @@ import java.util.List;
 
 import mul.camp.a.dto.BbsParam;
 import mul.camp.a.dto.MemberDto;
+import mul.camp.a.dto.MyParam;
 import mul.camp.a.dto.boardDto;
 import mul.camp.a.dto.commentDto;
 import mul.camp.a.dto.oneOoneDto;
@@ -28,13 +29,13 @@ public interface boardService {
 	
 	int  oneOoneInsert(oneOoneDto dto); //1:1 문의 게시판
 	   
-   List<oneOoneDto> onelist(String id); //1:1 글 불러오기
+   List<oneOoneDto> onelist(MyParam param); //1:1 글 불러오기
    
    oneOoneDto olist(int idx);// 문의 디테일
    
    int qdel(int idx);//문의내용 ㅅ ㅏㄱ제
    
-   List<oneOoneDto> qalllist(); //문의 내용 관리자용
+   List<oneOoneDto> qalllist(MyParam param); //문의 내용 관리자용
 
    MemberDto chk(String id);//아이디값 불러오기 컨트롤러에
    
@@ -45,4 +46,5 @@ public interface boardService {
 	int qcommentUpdate(commentDto dto);
 	
 	int qcommentDel(commentDto dto);
+	
 }

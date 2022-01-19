@@ -48,6 +48,17 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 </header>
 <div align="center" style="margin-top: 130px;">
 <h1> 여행지 리뷰 게시판 </h1>
+<div style="text-align:left; margin-left:10%; font-size:30px"><%=spot %> </div>
+<div style="text-align:right; margin-right:10%">
+<select id="choice">
+   <option value="title">제목</option>   
+   <option value="content">내용</option>   
+   <option value="writer">작성자</option>
+</select>
+<input type="text" id="search" value="">
+<input type="hidden" id="spot" value="<%=spot%>">
+<button type="button" onclick="searchBbs()">검색</button>
+</div>
 
 <table border="1" style="width:80%">
    <thead>
@@ -59,7 +70,7 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
          if(bbslist == null || bbslist.size()==0){    //bbslist를 controller 에서 가져와야함
       %>
       <tr>
-         <td colspan="5">작성된 글이 없습니다 !! 글을 제일먼저 작성해보세요!</td>
+         <td colspan="6" style="text-align:center">작성된 글이 없습니다 !! 글을 제일먼저 작성해보세요!</td>
       </tr>
       <%
          }
@@ -71,33 +82,27 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
       <tr>
       	 <c:set var="now" value="<%=bbs.getRegDate()%>"/>
          <th><%=i+1 %></th>
-         <th><a href="detail.do?idx=<%=bbs.getIdx()%>"><%=bbs.getTitle()%></a></th>
-         <th><%=bbs.getId() %></th>
+         <td><a href="detail.do?idx=<%=bbs.getIdx()%>"><%=bbs.getTitle()%></a></td>
+         <td><%=bbs.getId() %></td>
          <fmt:parseDate value="${now }" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss.S"/>
- 		 <th><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></th>
-         <th><%=bbs.getCnt()%></th>
-         <th><%=bbs.getSpot()%></th>
+ 		 <td><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></td>
+         <td><%=bbs.getCnt()%></td>
+         <td><%=bbs.getSpot()%></td>
       </tr>
       <%
             }
          }
       %> 
 </table>
-<select id="choice">
-   <option value="title">제목</option>   
-   <option value="content">내용</option>   
-   <option value="writer">작성자</option>
-</select>
-<input type="text" id="search" value="">
-<input type="hidden" id="spot" value="<%=spot%>">
-<button type="button" onclick="searchBbs()">검색</button>
-<br>
-<hr>
+<div style="text-align:center;" class="btn ">
+   <button type="button" onclick="location.href='write.do'">글쓰기</button>
+   <!-- <a href="write.do" style="border">글쓰기</a> -->
 </div>
 <br>
-<div align="center">
-   <a href="write.do"  style="color:#000000">글쓰기</a>
+<br><br>
 </div>
+<br>
+
 <jsp:include page="./footer.jsp"></jsp:include>
 </body>
 </html>

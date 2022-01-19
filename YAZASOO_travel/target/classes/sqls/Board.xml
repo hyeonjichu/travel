@@ -24,12 +24,34 @@
 		FROM Y_QUESTION
 		WHERE IDX=#{idx}
 	</select>
-
 	
-	<select id="qboard" parameterType="String" resultType="mul.camp.a.dto.oneOoneDto">
+	<select id="qboard" parameterType="mul.camp.a.dto.MyParam" resultType="mul.camp.a.dto.oneOoneDto">
 		SELECT * 
 		FROM Y_QUESTION
 		WHERE ID=#{id} AND DEL = 'N'
+		<if test="sort != null and sort !=''">
+			<choose>
+			      <when test="sort =='aa'">
+			       AND QTYPE = '계정 관리'
+			      </when>
+			      <when test="sort =='bb'">
+			       AND QTYPE = '내글 관리'
+			      </when>
+			      <when test="sort =='cc'">
+			       AND QTYPE = '유저 신고' 
+			      </when>
+			   </choose>
+		</if>
+		<if test="ansChk !=null and ansChk !=''">
+			<choose>
+			      <when test="ansChk =='yes'">
+			       AND ANSWERYN = 'Y'     
+			      </when>
+			      <when test="ansChk =='no'">
+			       AND ANSWERYN = 'N' 
+			      </when>
+			   </choose>
+		</if>
 		ORDER BY REGDATE DESC
 	</select>
 	
@@ -37,6 +59,30 @@
 		SELECT * 
 		FROM Y_QUESTION
 		WHERE DEL='N'
+		<if test="sort != null and sort !=''">
+			<choose>
+			      <when test="sort =='aa'">
+			       AND QTYPE = '계정 관리'
+			      </when>
+			      <when test="sort =='bb'">
+			       AND QTYPE = '내글 관리'
+			      </when>
+			      <when test="sort =='cc'">
+			       AND QTYPE = '유저 신고' 
+			      </when>
+			   </choose>
+		</if>
+		<if test="ansChk !=null and ansChk !=''">
+			<choose>
+			      <when test="ansChk =='yes'">
+			       AND ANSWERYN = 'Y'     
+			      </when>
+			      <when test="ansChk =='no'">
+			       AND ANSWERYN = 'N' 
+			      </when>
+			   </choose>
+		</if>
+		ORDER BY REGDATE DESC
 	</select>
 	
 	<select id="detail" parameterType="Integer" resultType="mul.camp.a.dto.boardDto">
@@ -81,8 +127,8 @@
 		      <when test="choice =='content'">
 		         WHERE DEL = 'N' AND CONTENT LIKE '%'||#{search}||'%' 
 		      </when>
-		      <when test="choice =='write'">
-		         WHERE DEL = 'N' AND ID=#{search} 
+		      <when test="choice =='writer'">
+		         WHERE DEL = 'N' AND ID LIKE '%'||#{search}||'%' 
 		      </when>
 		   </choose>
 		   <if test="spot != null and spot != ''">

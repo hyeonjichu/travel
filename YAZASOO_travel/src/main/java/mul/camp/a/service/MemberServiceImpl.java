@@ -68,8 +68,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<MemberDto> memberList() {
-		return dao.memberList();
+	public List<MemberDto> memberList(String id) {
+		return dao.memberList(id);
 	}
 
 	@Override
@@ -80,5 +80,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int memdely(String id) {
 		return dao.memdely(id);
+	}
+
+	@Override
+	public int authChange(MemberDto dto) {
+		return dao.authChange(dto);
 	}
 }

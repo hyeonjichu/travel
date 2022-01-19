@@ -44,6 +44,7 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 <jsp:include page="./headerMenu.jsp"></jsp:include>
 </header>
 <br><br><br><br>
+
 <table>
 	<tr>
 		<th>작성자</th>
@@ -68,11 +69,14 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 		<td align="center"><textarea rows="15" cols="100" readonly><%=oto.getQcontent() %></textarea></td>
 	</tr>
 </table>
+
 <input type="hidden" value="<%=mem.getId() %>" id="id">
 <input type="hidden" value="<%=oto.getIdx() %>" id="idx">
 <%if(oto.getId().equals(mem.getId())){ %>
-<div style="text-align:center">
+<div style="text-align:center" class="btn">
+<%-- <button type="button" onclick="location.href='myq.do?id=<%=mem.getId()%>'">목록</button> --%>
 <button type="button" onclick="qDel(<%=oto.getIdx() %>, '<%=mem.getId() %>', <%=mem.getAuth() %>)">삭제</button>
+<button type="button" onclick="location.href='myq.do?id=<%=mem.getId()%>'">목록</button>
 </div>
 <%} %>
 
@@ -91,18 +95,22 @@ MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
       </tr>
 </table>
 	<%if(mem.getAuth() == 1){ %>
+	<div class="btn">
 		<button type="button" id="updateBtn1" onclick="qcommnetUpdate()">수정</button>
 		<button type="button" id="updateBtn2" onclick="qcommnetUpdateAf(<%=oto.getIdx()%>, '<%=mem.getId()%>')" style="display:none">수정</button>
 		<button type="button" id="delBtn" onclick="qcommentDel(<%=oto.getIdx()%>, '<%=mem.getId()%>')">삭제</button>
+	</div>
 	<%} %>
 <%} %>
 </div>
 <div style="text-align:center">
 <%if(mem.getAuth() == 1 & oto.getAnswerYn().equals("N")){ %>
 <br><br><hr><br><br>
-	답변하기
-	<textarea type="text" id="text" name="text" rows="5" cols="100"></textarea>
-	<button type="button" onclick="qcommentWrite()">등록</button>
+	<table>
+	<tr><th>답변하기</th></tr>
+	<tr><td><div style="width:80%"><textarea type="text" id="text" name="text" rows="5" cols="100"></textarea></div></td></tr>
+	</table>
+	<div style="text-align:center" class="btn"><button type="button" onclick="qcommentWrite()">등록</button></div>
 <%} %>
 </div>
 <script type="text/javascript">

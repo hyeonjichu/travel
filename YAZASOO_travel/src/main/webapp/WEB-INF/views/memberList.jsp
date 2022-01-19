@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 List<MemberDto> mlist = (List<MemberDto>)request.getAttribute("mlist");
+MemberDto mem = (MemberDto) request.getSession().getAttribute("login");
 %>
 <!DOCTYPE html>
 <html>
@@ -44,7 +45,7 @@ List<MemberDto> mlist = (List<MemberDto>)request.getAttribute("mlist");
 <table border="1" style="width:80%">
    <thead>
       <tr>
-      <th>번호</th><th>아이디</th><th>이름</th><th>닉네임</th><th>성별</th><th>생년월일</th><th>이메일</th><th>전화번호</th><th>탈퇴여부</th><th>비고</th>
+      <th>번호</th><th>아이디</th><th>이름</th><th>닉네임</th><th>성별</th><th>생년월일</th><th>이메일</th><th>전화번호</th><th>탈퇴여부</th><th>비고</th><th>권한변경</th>
       </tr>
    </thead>
       <%
@@ -71,9 +72,14 @@ List<MemberDto> mlist = (List<MemberDto>)request.getAttribute("mlist");
       		<td><%=m.getPhone() %></td>
       		<td><%=m.getDel() %></td>
       		<%if(m.getDel().equals("Y") || m.getDel() == "Y"){ %>
-      		<td><button type="button" onclick="memDelN('<%=m.getId() %>')">복구</button></td>
+      		<td><button type="button" onclick="memDelN('<%=m.getId() %>','<%=mem.getId()%>')">복구</button></td>
       		<%}else{ %>
-      		<td><button type="button" onclick="memDelY('<%=m.getId() %>')">탈퇴</button></td>
+      		<td><button type="button" onclick="memDelY('<%=m.getId() %>','<%=mem.getId()%>')">탈퇴</button></td>
+      		<%} %>
+      		<%if(m.getAuth() == 1){ %>
+      		<td><button type="button" onclick="authChange0('<%=m.getId() %>','<%=mem.getId()%>')">일반</button></td>
+      		<%}else{ %>
+      		<td><button type="button" onclick="authChange1('<%=m.getId() %>','<%=mem.getId()%>')">관리자</button></td>
       		<%} %>
       </tr>
       <%
@@ -81,16 +87,27 @@ List<MemberDto> mlist = (List<MemberDto>)request.getAttribute("mlist");
          }
       %> 
 </table>
+<jsp:include page="./footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
-function memDelN(id){
+function memDelN(id, user){
 	if(confirm("회원을 복구하시겠습니까?") == true){
-		location.href = "memDelN.do?id="+id;
+		location.href = "memDelN.do?id="+id+"&user="+user;
 	}
 }
-function memDelY(id){
+function memDelY(id, user){
 	if(confirm("회원을 탈퇴시키겠습니까?") == true){
-		location.href = "memDelY.do?id="+id;
+		location.href = "memDelY.do?id="+id+"&user="+user;
+	}
+}
+function authChange0(id, user){
+	if(confirm("관리자를 일반 회원으로 변경하시겠습니까?") == true){
+		location.href = "authChange.do?id="+id+"&auth=0&user="+user;
+	}
+}
+function authChange1(id, user){
+	if(confirm("일반 회원을 관리자로 변경하시겠습니까?") == true){
+		location.href = "authChange.do?id="+id+"&auth=1&user="+user;
 	}
 }
 </script>

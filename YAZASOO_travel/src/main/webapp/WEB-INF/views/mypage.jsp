@@ -13,10 +13,9 @@ List<boardDto> mylist = (List<boardDto>)request.getAttribute("mylist");
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="css/abc.css" />
-    <link rel="stylesheet" type="text/css" href="css/qwe.css" />
-    <script type="text/javascript" src="js/board.js"></script>
-	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/mypage.css" />
+    <script type="text/javascript" src="js/mypage.js"></script>
+   <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     
     <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
@@ -61,7 +60,7 @@ List<boardDto> mylist = (List<boardDto>)request.getAttribute("mylist");
 <body>
    <br><br><br><br><br><br>
    <h1>마이 페이지</h1>
-   <table border="1" style="width:80%">
+   <table border="1" style="width:80%" class = description >
    <thead>
       <tr>
       <th>글 번호</th> <th>글 제목</th> <th>작성자</th> <th>날짜</th> <th>조회수</th><th>지역</th>
@@ -71,7 +70,7 @@ List<boardDto> mylist = (List<boardDto>)request.getAttribute("mylist");
          if(mylist == null || mylist.size()==0){    //bbslist를 controller 에서 가져와야함
       %>
       <tr>
-         <td colspan="5">작성된 글이 없습니다 !! 글을 제일먼저 작성해보세요!</td>
+         <td colspan="6"><div style="text-align:center">작성된 글이 없습니다 !! 글을 제일먼저 작성해보세요!</div></td>
       </tr>
       <%
          }
@@ -81,28 +80,26 @@ List<boardDto> mylist = (List<boardDto>)request.getAttribute("mylist");
                boardDto bbs = mylist.get(i);
       %>
       <tr>
-      	 <c:set var="now" value="<%=bbs.getRegDate()%>"/>
+          <c:set var="now" value="<%=bbs.getRegDate()%>"/>
          <th><%=i+1 %></th>
-         <th><a href="detail.do?idx=<%=bbs.getIdx()%>"><%=bbs.getTitle()%></a></th>
-         <th><%=bbs.getId() %></th>
+         <td><a href="detail.do?idx=<%=bbs.getIdx()%>"><%=bbs.getTitle()%></a></td>
+         <td><%=bbs.getId() %></td>
          <fmt:parseDate value="${now }" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss.S"/>
- 		 <th><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></th>
-         <th><%=bbs.getCnt()%></th>
-         <th><%=bbs.getSpot()%></th>
+        <td><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></td>
+         <td><%=bbs.getCnt()%></td>
+         <td><%=bbs.getSpot()%></td>
       </tr>
       <%
             }
          }
       %> 
 </table>
-         <div>
+         <div class="goLogin ">
             <button type="button" onclick="location.href='Modify.do?id=<%=mem.getId()%>'">회원수정</button>
-         </div>
-           <div>
             <button type="button" onclick="location.href='memberDelete.do?id=<%=mem.getId()%>'">회원 탈퇴</button>
          </div>
+<jsp:include page="./footer.jsp"></jsp:include>
 </body>
-
 <script type="text/javascript">
    function memberDelete(id){
        alert('정말 탈퇴 하시겠습니까?');

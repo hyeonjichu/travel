@@ -3,9 +3,10 @@ let account; //계정 부분 공란확인
 
 
    function btnClick(){
-   //$("#btnID").click(function () {
-	alert('click');
-      $.ajax({
+	if($("#id").val() == "" || $("#id").val() == null){
+		alert("id를 입력해주세요.");
+	}else{
+		$.ajax({
          url:"idcheck.do",
          type:"post",
          data:{ id:$("#id").val() },
@@ -24,16 +25,18 @@ let account; //계정 부분 공란확인
             alert('error');
          }
       });
-   //});  
+	}
 }
-   
-   $("#btnEmail").click(function () {
-      $.ajax({
+
+function ebtnClick(){
+	if($("#email").val() == "" || $("#email").val() == null){
+		alert("email을 입력해주세요.");
+	}else{
+		$.ajax({
          url:"emailcheck.do",
          type:"post",
          data:{ email:$("#email").val() },
          success:function( msg ){
-         
             if(msg == "YES"){
                $("#emailcheck").css("color", "#0000ff");
                $("#emailcheck").html("사용할 수 있는 이메일입니다");
@@ -48,7 +51,8 @@ let account; //계정 부분 공란확인
             alert('error');
          }
       });
-   });   
+	}
+}
 
 
 $(function(){

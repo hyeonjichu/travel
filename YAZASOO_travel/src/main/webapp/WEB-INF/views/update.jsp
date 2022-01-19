@@ -44,11 +44,18 @@ boardDto dto = (boardDto)request.getAttribute("detail");
 	<!-- include summernote css/js -->
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<style type="text/css">
+th{
+   width: 100px;
+   text-align:center;
+}
+</style>
 </head>
 <body>
 <header id="main-header">
 <jsp:include page="./headerMenu.jsp"></jsp:include>
 </header>
+<br><br><br><br>
 <div align="center">
 	<form action="boardUpdateAf.do" method="post" id="frm">
 		<table border="1" style="width:1000px">
@@ -56,19 +63,22 @@ boardDto dto = (boardDto)request.getAttribute("detail");
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" name="id" size="70px" value="<%= dto.getId() %>" readonly>
+					<input type="hidden" name="id" size="70px" value="<%= dto.getId() %>">
+					<%= dto.getId() %>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>작성일</th>
+				<td>
+					<input type="hidden" id="date" name="date" size="70px" value="<%= dto.getRegDate()%>">
+					<%= dto.getRegDate()%>
 				</td>
 			</tr>
 			<tr>
 				<th>제목</th>
 				<td>
 					<input type="text" id="title" name="title" size="70px" value="<%= dto.getTitle()%>">
-				</td>
-			</tr>
-			<tr>
-				<th>작성일</th>
-				<td>
-					<input type="text" id="date" name="date" size="70px" value="<%= dto.getRegDate()%>" readonly>
 				</td>
 			</tr>
 			<tr>
@@ -91,12 +101,8 @@ boardDto dto = (boardDto)request.getAttribute("detail");
 					<textarea rows="20" cols="80" id="summernote" name="content" ><%=dto.getContent() %></textarea>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="button" onclick="boardUpdate()">수정하기</button>
-				</td>
-			</tr>
 		</table>
+		<div class="btn"><button type="button" onclick="boardUpdate()">수정하기</button></div>
 	</form>
 </div>
 <jsp:include page="./footer.jsp"></jsp:include>

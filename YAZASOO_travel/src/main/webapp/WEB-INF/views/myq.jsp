@@ -42,19 +42,33 @@
 <header id="main-header">
 <jsp:include page="./headerMenu.jsp"></jsp:include>
 </header>
-<br><br><br><br>
+<br><br><br><br><br>
 <h1>문의 내역</h1>
+<div style="text-align:right; margin-right:10%">
+<select id="sort">
+<option value="every">전체</option>
+<option value="aa">계정 관리</option>
+<option value="bb">내글 관리</option>
+<option value="cc">유저 신고</option>
+</select>
+<select id="ansChk">
+<option value="all">답변 여부</option>
+<option value="yes">Y</option>
+<option value="no">N</option>
+</select>
+<button type="button" onclick="searchMyq('<%=mem.getId()%>')">검색</button>
+</div>
 <table border="1px" solid black>
 <thead>
 	<tr>
-	<th>　　</th><th>문의 제목</th><th>문의 날짜</th><th>문의 유형</th><th>답변 현황</th>
+	<th>　　</th><th>아이디</th><th>문의 제목</th><th>문의 날짜</th><th>문의 유형</th><th>답변 현황</th>
 	</tr>
 </thead>
 <%
 	if(olist == null || olist.size()==0){ 
 %>
 <tr>
-	<td colspan="4" style="text-align:center">문의 내용이 없습니다.</td>
+	<td colspan="6" style="text-align:center">문의 내용이 없습니다.</td>
 </tr>
 <%
 }
@@ -64,7 +78,9 @@
 			int idx = ood.getIdx();
 %>
 <tr>
-	<th>Q : </th> 
+	<!-- <th>Q : </th> -->
+	<th><%=i+1 %></th> 
+	<td><%=ood.getId() %></td>
 	<td><a href="qdetail.do?idx=<%=ood.getIdx()%>"><%=ood.getQtitle()%></a></td>
 	<c:set var="now" value="<%=ood.getRegdate()%>"/>
 	<fmt:parseDate value="${now }" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss.S"/>
@@ -77,11 +93,19 @@
 		}
 %>
 </table>
-<div style="text-align:center">
+<div style="text-align:center" class="btn">
 <%if(mem.getAuth() == 0){ %>
-<button type="button" onclick="location.href='oneOone.do?auth=<%=mem.getAuth()%>&id=<%=mem.getId()%>'">질문하기</button>
+<button type="button" onclick="location.href='oneOone.do?auth=<%=mem.getAuth()%>&id=<%=mem.getId()%>'">문의 하기</button>
 <%} %>
 </div>
 <jsp:include page="./footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+function searchMyq(id){
+	   let sort = document.getElementById("sort").value;
+	   let ansChk = document.getElementById("ansChk").value;
+	   
+	   location.href = "myq.do?sort="+ sort + "&ansChk=" + ansChk+"&id="+id;
+	}
+</script>
 </html>

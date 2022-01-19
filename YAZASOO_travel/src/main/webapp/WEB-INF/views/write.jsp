@@ -42,9 +42,13 @@ MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
 	<!-- include summernote css/js -->
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-	
+<style type="text/css">
+th{
+   width: 100px;
+   text-align:center;
+}
+</style>
 </head>
-
 <body>
 <header id="main-header">
 <jsp:include page="./headerMenu.jsp"></jsp:include>
@@ -88,14 +92,12 @@ MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
 					<textarea id="summernote" name="content"></textarea>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="button" onclick="boardWrite()">글쓰기</button>&nbsp;
-					<button type="button" onclick="location='board.do'">돌아가기</button>
-				</td>
-			</tr>
 		</table>
 	</form>
+	<div class="btn">
+		<button type="button" onclick="boardWrite()">글쓰기</button>&nbsp;
+		<button type="button" onclick="location='board.do'">돌아가기</button>
+	</div>
 </div>
 <jsp:include page="./footer.jsp"></jsp:include>
 </body>

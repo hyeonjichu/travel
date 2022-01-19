@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import mul.camp.a.dto.BbsParam;
 import mul.camp.a.dto.MemberDto;
+import mul.camp.a.dto.MyParam;
 import mul.camp.a.dto.boardDto;
 import mul.camp.a.dto.commentDto;
 import mul.camp.a.dto.oneOoneDto;
@@ -69,9 +70,9 @@ public class boardDaoImpl implements boardDao {
    }
 
    @Override//1:1 글 불러오기
-   public List<oneOoneDto> onelist(String id) {
+   public List<oneOoneDto> onelist(MyParam param) {
       
-      return session.selectList(ns+"qboard",id);
+      return session.selectList(ns+"qboard",param);
    }
 
    @Override//문의 내용 불러오기
@@ -88,9 +89,9 @@ public class boardDaoImpl implements boardDao {
    }
 
    @Override
-   public List<oneOoneDto> qalllist() {
+   public List<oneOoneDto> qalllist(MyParam param) {
       
-      return session.selectList(ns+"qallboard");
+      return session.selectList(ns+"qallboard", param);
    }
 
    @Override
@@ -119,6 +120,5 @@ public class boardDaoImpl implements boardDao {
 	public int qcommentDel(commentDto dto) {
 		return session.update(ns1+"qcommentDel", dto);
 	}
-
 
 }

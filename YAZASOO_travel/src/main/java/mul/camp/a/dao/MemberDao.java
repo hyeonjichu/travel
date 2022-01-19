@@ -27,9 +27,11 @@ public interface MemberDao {
    
    List<boardDto> mylist(MemberDto dto);
 
-   List<MemberDto> memberList();
+   List<MemberDto> memberList(String id);
    
    int memdeln(String id);
 
    int memdely(String id);
+   
+   int authChange(MemberDto dto);
 }

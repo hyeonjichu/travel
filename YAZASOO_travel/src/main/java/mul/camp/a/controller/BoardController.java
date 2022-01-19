@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import mul.camp.a.dto.BbsParam;
 import mul.camp.a.dto.MemberDto;
+import mul.camp.a.dto.MyParam;
 import mul.camp.a.dto.boardDto;
 import mul.camp.a.dto.commentDto;
 import mul.camp.a.dto.oneOoneDto;
@@ -49,21 +49,20 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	//1:1 내 문의글 확인
 	@RequestMapping(value="myq.do",method=RequestMethod.GET)
-	public String myq(Model model,String id, HttpSession session) {
+	public String myq(Model model,String id, HttpSession session, MyParam param) {
 		logger.info("MainController myq() " + new Date());
-
+		
 		if(session.getAttribute("login") == null) {
 			return "redirect:/login.do";
 		}
-		
 		MemberDto dto = service.chk(id);
-		System.out.println("auth:"+ dto.getAuth() + dto.toString());
+		System.out.println(param.toString());
 		
 		if(dto.getAuth() == 1) {
-			List<oneOoneDto> list = service.qalllist();
+			List<oneOoneDto> list = service.qalllist(param);
 			model.addAttribute("onelist",list);
 		}else {
-			List<oneOoneDto> list = service.onelist(id);
+			List<oneOoneDto> list = service.onelist(param);
 			model.addAttribute("onelist",list);
 		}
 		
@@ -78,6 +77,7 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 		if(session.getAttribute("login") == null) {
 			return "redirect:/login.do";
 		}	
+		
 		
 		if(param.getSpot() != null && !param.getSpot().equals("")) {
 			if(param.getSpot().equals("seoul")) {
@@ -105,6 +105,7 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 		}else {
 			model.addAttribute("spot","");
 		}
+		
 		List<boardDto> list = service.bbslist(param);
 		model.addAttribute("bbslist", list);
 		
@@ -310,7 +311,6 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 		}
 	}
 	
-	
 	//댓글쓰기
 	@RequestMapping(value="qcommentWrite.do", method = RequestMethod.GET)
 	public String qcommentWrite(commentDto dto, HttpSession session) {
@@ -360,5 +360,6 @@ private static Logger logger = LoggerFactory.getLogger(BoardController.class);
 			return "redirect:/board.do";
 		}
 	}
+	
 	
 }

@@ -2,8 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page import="mul.camp.a.dto.MemberDto"%>
 <%@page import="mul.camp.a.dto.boardDto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
@@ -50,7 +49,12 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
 	<!-- include summernote css/js -->
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-	
+<style type="text/css">
+th{
+   width: 100px;
+   text-align:center;
+}
+</style>	
 </head>
 <body>
 <header id="main-header">
@@ -93,26 +97,28 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
 	MemberDto mem = (MemberDto)request.getSession().getAttribute("login");
 	%>
 	<br><br>
+	<div class="btn">
 	<button type="button" onclick="board()">목록</button>	
 	<%if(mem.getId().equals(dto.getId())){ %>
 	<%-- <%if(dto.getId().equals("id")){ %> --%>
 		<button type="button" onclick="boardUpdate(<%=dto.getIdx() %>)">수정</button>	
 		<button type="button" onclick="boardDel(<%=dto.getIdx() %>)">삭제</button>
 	<%} %>
-	
+	</div>
 	<br><br><hr><br><br>
-	댓글쓰기
 	<input type="hidden" value="<%=mem.getId()%>" id="id">
 	<input type="hidden" value="<%=dto.getIdx()%>" id="idx">
-	<textarea type="text" id="text" name="text" rows="5" cols="100"></textarea>
-	<button type="button" onclick="commentWrite()">등록</button>
 	
-	
+	<table>
+		<tr><th>댓글쓰기</th></tr>
+		<tr><td><div style="width:80%"><textarea type="text" id="text" name="text" rows="5" cols="180"></textarea></div></td></tr>
+	</table>
+		<div style="text-align:center" class="btn"><button type="button" onclick="commentWrite()">등록</button></div>
 	
 <table border="1" style="width:80%">
    <thead>
       <tr>
-      <th>글 번호</th> <th>날짜</th><th>작성자</th><th>내용</th><th>비고</th>
+      <th>글 번호</th><th>작성자</th><th>내용</th><th>날짜</th><th>비고</th>
       </tr>
    </thead>
       <%
@@ -139,7 +145,7 @@ List<commentDto> list = (List<commentDto>)request.getAttribute("commentlist");
  		 <td><fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm"/></td>
          <td>
          <%if(mem.getId().equals(comment.getId())){ %>       
-			<button type="button" onclick="commentDel(<%=comment.getIdx() %>, <%=comment.getBidx() %>)">삭제</button>   
+			<a href="#" style="color:black" type="button" onclick="commentDel(<%=comment.getIdx() %>, <%=comment.getBidx() %>)">삭제</a>   
 		<%} %>      
          </td>
       </tr>
